@@ -3,20 +3,23 @@
 import { Grid } from "@react-three/drei";
 import { RF_COLORS } from "@/lib/three-utils";
 
-/** Shared lighting rig: cool key light with shadows + purple fill + hemisphere. */
+/**
+ * Shared day-lit rig: warm sun with soft shadows, cool sky bounce,
+ * and a violet kicker so signal geometry separates from architecture.
+ */
 export function CityLighting({ intensity = 1 }: { intensity?: number }) {
   return (
     <>
-      <ambientLight intensity={0.22 * intensity} color="#8fb3e8" />
+      <ambientLight intensity={0.5 * intensity} color="#e8eeff" />
       <hemisphereLight
-        intensity={0.35 * intensity}
-        color="#3d5a8f"
-        groundColor="#0a1428"
+        intensity={0.55 * intensity}
+        color="#dbe7ff"
+        groundColor="#efe9da"
       />
       <directionalLight
         position={[70, 90, 45]}
-        intensity={1.25 * intensity}
-        color="#cfe0ff"
+        intensity={1.9 * intensity}
+        color="#fff2df"
         castShadow
         shadow-mapSize-width={2048}
         shadow-mapSize-height={2048}
@@ -31,13 +34,13 @@ export function CityLighting({ intensity = 1 }: { intensity?: number }) {
       <directionalLight
         position={[-60, 40, -70]}
         intensity={0.35 * intensity}
-        color={RF_COLORS.purple}
+        color="#c7bfff"
       />
     </>
   );
 }
 
-/** Shared ground: dark plane + fading engineering grid. */
+/** Shared ground: warm paper plane + blueprint drafting grid. */
 export function GroundPlane({
   size = 600,
   grid = true,
@@ -52,7 +55,7 @@ export function GroundPlane({
         <meshStandardMaterial
           color={RF_COLORS.ground}
           roughness={0.95}
-          metalness={0.05}
+          metalness={0.02}
         />
       </mesh>
       {grid && (
@@ -61,10 +64,10 @@ export function GroundPlane({
           args={[size, size]}
           cellSize={10}
           cellThickness={0.5}
-          cellColor="#1a2c4d"
+          cellColor="#c0cbde"
           sectionSize={50}
           sectionThickness={1}
-          sectionColor="#27406b"
+          sectionColor="#93a5c4"
           fadeDistance={280}
           fadeStrength={1.2}
           followCamera={false}

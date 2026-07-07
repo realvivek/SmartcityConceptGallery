@@ -168,8 +168,8 @@ export function FlowStreams({ streams, showLinks }: FlowStreamsProps) {
           <lineBasicMaterial
             vertexColors
             transparent
-            opacity={0.3}
-            blending={THREE.AdditiveBlending}
+            opacity={0.45}
+            blending={THREE.NormalBlending}
             depthWrite={false}
             toneMapped={false}
           />
@@ -187,7 +187,7 @@ export function FlowStreams({ streams, showLinks }: FlowStreamsProps) {
           vertexColors
           transparent
           opacity={0.95}
-          blending={THREE.AdditiveBlending}
+          blending={THREE.NormalBlending}
           depthWrite={false}
           toneMapped={false}
         />

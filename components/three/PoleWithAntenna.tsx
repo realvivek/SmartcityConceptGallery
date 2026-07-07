@@ -33,23 +33,23 @@ export function PoleWithAntenna({
       {/* base */}
       <mesh position={[0, 0.25, 0]} castShadow>
         <cylinderGeometry args={[0.42, 0.5, 0.5, 16]} />
-        <meshStandardMaterial color="#1c2c47" roughness={0.6} metalness={0.6} />
+        <meshStandardMaterial color="#5b6b85" roughness={0.6} metalness={0.6} />
       </mesh>
       {/* pole */}
       <mesh position={[0, height / 2, 0]} castShadow>
         <cylinderGeometry args={[0.14, 0.2, height, 12]} />
-        <meshStandardMaterial color="#233a5c" roughness={0.45} metalness={0.75} />
+        <meshStandardMaterial color="#71819c" roughness={0.45} metalness={0.75} />
       </mesh>
       {/* luminaire arm + head */}
       {luminaire && (
         <group position={[0, height * 0.92, 0]}>
           <mesh position={[0, 0, 1.1]} rotation={[Math.PI / 2, 0, 0]} castShadow>
             <cylinderGeometry args={[0.07, 0.07, 2.2, 8]} />
-            <meshStandardMaterial color="#233a5c" roughness={0.5} metalness={0.7} />
+            <meshStandardMaterial color="#71819c" roughness={0.5} metalness={0.7} />
           </mesh>
           <mesh position={[0, -0.08, 2.2]} castShadow>
             <boxGeometry args={[0.5, 0.14, 1]} />
-            <meshStandardMaterial color="#2b4568" roughness={0.4} metalness={0.7} />
+            <meshStandardMaterial color="#65758f" roughness={0.4} metalness={0.7} />
           </mesh>
           <mesh position={[0, -0.17, 2.2]}>
             <boxGeometry args={[0.4, 0.04, 0.85]} />
@@ -65,11 +65,11 @@ export function PoleWithAntenna({
       <group position={[0, height + 0.75, 0]}>
         <mesh castShadow>
           <cylinderGeometry args={[0.38, 0.42, 1.5, detailed ? 24 : 14]} />
-          <meshStandardMaterial color="#2b4568" roughness={0.35} metalness={0.55} />
+          <meshStandardMaterial color="#65758f" roughness={0.35} metalness={0.55} />
         </mesh>
         <mesh position={[0, 0.78, 0]}>
           <cylinderGeometry args={[0.3, 0.38, 0.12, detailed ? 24 : 14]} />
-          <meshStandardMaterial color="#1c2c47" roughness={0.5} metalness={0.6} />
+          <meshStandardMaterial color="#5b6b85" roughness={0.5} metalness={0.6} />
         </mesh>
         {/* radiating face strip */}
         <mesh position={[0, 0, 0.41]}>
@@ -96,11 +96,11 @@ export function PoleWithAntenna({
             {/* mounting brackets + cable run for close-up scenes */}
             <mesh position={[0, -0.55, -0.3]} castShadow>
               <boxGeometry args={[0.5, 0.1, 0.25]} />
-              <meshStandardMaterial color="#1c2c47" roughness={0.5} metalness={0.7} />
+              <meshStandardMaterial color="#5b6b85" roughness={0.5} metalness={0.7} />
             </mesh>
             <mesh position={[0, -1.4, -0.22]} castShadow>
               <cylinderGeometry args={[0.035, 0.035, 1.6, 8]} />
-              <meshStandardMaterial color="#101c31" roughness={0.8} />
+              <meshStandardMaterial color="#3b4a66" roughness={0.8} />
             </mesh>
           </>
         )}

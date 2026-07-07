@@ -328,10 +328,10 @@ export default function WorkloadDemo() {
 
   const scoreAccent =
     placement.totalScore >= 70
-      ? "text-emerald-300"
+      ? "text-teal-700"
       : placement.totalScore >= 40
-        ? "text-amber-300"
-        : "text-rose-300";
+        ? "text-amber-700"
+        : "text-rose-700";
 
   return (
     <div className="relative h-full w-full">
@@ -341,7 +341,7 @@ export default function WorkloadDemo() {
         minDistance={22}
         maxDistance={250}
       >
-        <CityLighting intensity={1.3} />
+        <CityLighting />
         <GroundPlane />
         <CityBuildings buildings={buildings} />
         <NodeMarkers
@@ -378,7 +378,7 @@ export default function WorkloadDemo() {
       </DemoCanvas>
 
       <ControlPanel title="Orchestrator">
-        <div className="space-y-1.5 rounded-lg border border-white/8 bg-white/[0.03] p-3">
+        <div className="space-y-1.5 rounded-md border border-ink/20 bg-ink/[0.04] p-3">
           <StatRow
             label="Placement score"
             value={`${placement.totalScore.toFixed(0)} / 100`}
@@ -391,7 +391,7 @@ export default function WorkloadDemo() {
                 ? `${placement.avgLatency.toFixed(2)} ms`
                 : "—"
             }
-            accent="text-cyan-300"
+            accent="text-sky-700"
           />
           <StatRow
             label="Assigned"
@@ -401,7 +401,7 @@ export default function WorkloadDemo() {
             label="Overloaded nodes"
             value={`${placement.overloadedCount}`}
             accent={
-              placement.overloadedCount > 0 ? "text-rose-300" : "text-slate-300"
+              placement.overloadedCount > 0 ? "text-rose-700" : "text-ink/70"
             }
           />
         </div>

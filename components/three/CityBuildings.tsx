@@ -61,8 +61,8 @@ export function CityBuildings({
       <boxGeometry />
       <meshStandardMaterial
         color="#ffffff"
-        roughness={0.88}
-        metalness={0.18}
+        roughness={0.9}
+        metalness={0.04}
         transparent={opacity < 1}
         opacity={opacity}
       />

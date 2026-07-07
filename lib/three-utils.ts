@@ -11,29 +11,34 @@ import * as THREE from "three";
 /*  Shared palette                                                     */
 /* ------------------------------------------------------------------ */
 
+/**
+ * "Solar blueprint" palette — day-lit scenes on warm paper.
+ * Key names are historical (kept stable so demos don't churn):
+ * `navy` is the sky/backdrop tint, `blue` the primary signal indigo.
+ */
 export const RF_COLORS = {
-  navy: "#0a1428",
-  navyLight: "#12203d",
-  panel: "#0e1b33",
-  blue: "#3b82f6",
-  purple: "#a855f7",
-  cyan: "#22d3ee",
-  emerald: "#34d399",
+  navy: "#e7edf6",
+  navyLight: "#dde5f1",
+  panel: "#fdfcf7",
+  blue: "#4f46e5",
+  purple: "#7c3aed",
+  cyan: "#0284c7",
+  emerald: "#0f9d8f",
   amber: "#f59e0b",
-  rose: "#f43f5e",
-  slate: "#64748b",
-  ice: "#e2e8f0",
-  building: "#16263f",
-  buildingEdge: "#2c4a75",
-  ground: "#0b1830",
+  rose: "#e11d48",
+  slate: "#64748f",
+  ice: "#24344d",
+  building: "#d9d4c7",
+  buildingEdge: "#9fb0c8",
+  ground: "#eae6da",
 } as const;
 
 /** Signal-strength colour ramp stops, strongest → weakest. */
 export const SIGNAL_RAMP = [
-  new THREE.Color(RF_COLORS.cyan),
+  new THREE.Color("#6d28d9"),
   new THREE.Color(RF_COLORS.blue),
-  new THREE.Color(RF_COLORS.purple),
-  new THREE.Color(RF_COLORS.rose),
+  new THREE.Color(RF_COLORS.cyan),
+  new THREE.Color("#ff5d4d"),
 ];
 
 /**
@@ -56,7 +61,7 @@ export function qualityColor(t: number, target?: THREE.Color): THREE.Color {
     new THREE.Color(RF_COLORS.rose),
     new THREE.Color(RF_COLORS.amber),
     new THREE.Color(RF_COLORS.emerald),
-    new THREE.Color(RF_COLORS.cyan),
+    new THREE.Color("#2563eb"),
   ];
   const clamped = THREE.MathUtils.clamp(t, 0, 1) * (stops.length - 1);
   const i = Math.min(Math.floor(clamped), stops.length - 2);

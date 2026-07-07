@@ -79,7 +79,7 @@ export function SensorMarkers({ sensors, onRemove }: SensorMarkersProps) {
                 color={hex}
                 transparent
                 opacity={0.45}
-                blending={THREE.AdditiveBlending}
+                blending={THREE.NormalBlending}
                 depthWrite={false}
                 toneMapped={false}
               />

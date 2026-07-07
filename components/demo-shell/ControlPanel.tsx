@@ -10,8 +10,9 @@ import { Slider } from "@/components/ui/slider";
 import { Switch } from "@/components/ui/switch";
 
 /**
- * Floating glass control panel used by every demo. Collapsible so it
- * never permanently obstructs the scene, especially on mobile.
+ * Floating drafting-sheet control panel used by every demo — paper,
+ * hairline ink border, corner ticks, hard offset shadow. Collapsible so
+ * it never permanently obstructs the scene.
  */
 export function ControlPanel({
   title = "Controls",
@@ -35,20 +36,20 @@ export function ControlPanel({
       // above drei <Html> overlays, which use z-indices up to ~16777271
       style={{ zIndex: 16777272 }}
     >
-      <div className="glass-panel overflow-hidden rounded-xl shadow-[0_8px_32px_rgba(2,8,23,0.6)]">
+      <div className="paper-panel corner-ticks relative overflow-hidden rounded-md">
         <button
           type="button"
           onClick={() => setOpen((o) => !o)}
           className="flex w-full cursor-pointer items-center gap-2 px-4 py-3 text-left"
           aria-expanded={open}
         >
-          <SlidersHorizontal className="size-3.5 text-blue-400" />
-          <span className="flex-1 text-xs font-semibold tracking-widest text-slate-200 uppercase">
+          <SlidersHorizontal className="size-3.5 text-primary" />
+          <span className="flex-1 font-mono text-[11px] font-semibold tracking-[0.18em] text-ink uppercase">
             {title}
           </span>
           <ChevronDown
             className={cn(
-              "size-4 text-slate-400 transition-transform",
+              "size-4 text-muted-foreground transition-transform",
               open && "rotate-180"
             )}
           />
@@ -96,7 +97,7 @@ export function LabeledSlider({
     <div className="space-y-2">
       <div className="flex items-baseline justify-between">
         <Label>{label}</Label>
-        <span className="font-mono text-[11px] text-blue-300 tabular-nums">
+        <span className="font-mono text-[11px] text-primary tabular-nums">
           {format(value)}
         </span>
       </div>
@@ -139,7 +140,9 @@ export function ToggleRow({
 /** Muted helper text inside a control panel. */
 export function ControlHint({ children }: { children: ReactNode }) {
   return (
-    <p className="text-[11px] leading-relaxed text-slate-400/90">{children}</p>
+    <p className="text-[11px] leading-relaxed text-muted-foreground">
+      {children}
+    </p>
   );
 }
 
@@ -147,7 +150,7 @@ export function ControlHint({ children }: { children: ReactNode }) {
 export function StatRow({
   label,
   value,
-  accent = "text-blue-300",
+  accent = "text-primary",
 }: {
   label: string;
   value: string;
@@ -155,7 +158,7 @@ export function StatRow({
 }) {
   return (
     <div className="flex items-baseline justify-between gap-3">
-      <span className="text-[11px] text-slate-400">{label}</span>
+      <span className="text-[11px] text-muted-foreground">{label}</span>
       <span className={cn("font-mono text-xs tabular-nums", accent)}>
         {value}
       </span>

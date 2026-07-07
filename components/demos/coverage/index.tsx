@@ -232,16 +232,16 @@ export default function CoverageDemo() {
           checked={showCells}
           onCheckedChange={setShowCells}
         />
-        <div className="space-y-1.5 rounded-lg border border-white/8 bg-white/[0.03] p-3">
+        <div className="space-y-1.5 rounded-md border border-ink/20 bg-ink/[0.04] p-3">
           <StatRow
             label="Cells active"
             value={`${activeCells.length}`}
-            accent="text-cyan-300"
+            accent="text-sky-700"
           />
           <StatRow
             label="Street area covered"
             value={`${stats.coveredPct.toFixed(1)} %`}
-            accent="text-emerald-300"
+            accent="text-teal-700"
           />
           <StatRow
             label="Newest cell fills"
@@ -250,7 +250,7 @@ export default function CoverageDemo() {
                 ? `+${stats.newestGainPts.toFixed(1)} pts`
                 : "—"
             }
-            accent="text-purple-300"
+            accent="text-violet-700"
           />
         </div>
         <ControlHint>

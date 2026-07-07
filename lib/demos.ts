@@ -47,7 +47,7 @@ export const DEMOS: DemoMeta[] = [
       "Steer a small-cell antenna array through a downtown block and watch main and side lobes reshape in real time.",
     tags: ["Beamforming", "Antenna Arrays", "Path Loss"],
     accent: "default",
-    accentHex: "#3b82f6",
+    accentHex: "#4f46e5",
     explanation: {
       heading: "Why beamforming matters in dense urban 5G",
       paragraphs: [
@@ -71,7 +71,7 @@ export const DEMOS: DemoMeta[] = [
       "Watch city sensors stream telemetry to edge compute nodes co-located with small cells, with latency painted onto every packet.",
     tags: ["Edge AI", "IoT Sensors", "Latency"],
     accent: "purple",
-    accentHex: "#a855f7",
+    accentHex: "#7c3aed",
     explanation: {
       heading: "Why compute is moving to the network edge",
       paragraphs: [
@@ -80,7 +80,7 @@ export const DEMOS: DemoMeta[] = [
       ],
       notice: [
         "Sensors bind to their nearest edge node — add or remove sensors and watch the topology re-balance.",
-        "Raising workload intensity pushes queueing delay up: streams shift from cyan (fast) toward rose (congested).",
+        "Raising workload intensity pushes queueing delay up: streams shift from cool blue (fast) toward warm rose (congested).",
         "Distant sensors are visibly slower even at zero load — propagation delay is physics, not congestion.",
       ],
       realWorld:
@@ -95,7 +95,7 @@ export const DEMOS: DemoMeta[] = [
       "Densify a sparse small-cell deployment step by step and watch street-level coverage bloom through the urban fabric.",
     tags: ["Densification", "Coverage", "Small Cells"],
     accent: "cyan",
-    accentHex: "#22d3ee",
+    accentHex: "#0284c7",
     explanation: {
       heading: "Densification: coverage by a thousand small cells",
       paragraphs: [
@@ -143,7 +143,7 @@ export const DEMOS: DemoMeta[] = [
       "Inspect a streetlight-mounted small cell's 3D radiation pattern and aim it down an urban canyon.",
     tags: ["Radiation Patterns", "Antennas", "Urban Canyon"],
     accent: "emerald",
-    accentHex: "#34d399",
+    accentHex: "#0f9d8f",
     explanation: {
       heading: "Reading a 3D radiation pattern",
       paragraphs: [
@@ -167,7 +167,7 @@ export const DEMOS: DemoMeta[] = [
       "Drop AI workloads onto a mesh of edge nodes and get scored on latency, capacity and locality in real time.",
     tags: ["Edge AI", "Orchestration", "Optimization"],
     accent: "purple",
-    accentHex: "#a855f7",
+    accentHex: "#7c3aed",
     explanation: {
       heading: "The edge orchestration problem",
       paragraphs: [

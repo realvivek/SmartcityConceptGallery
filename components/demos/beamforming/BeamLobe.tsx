@@ -52,6 +52,7 @@ export function BeamLobe({
     const positions = new Float32Array(azCount * elCount * 3);
     const colors = new Float32Array(azCount * elCount * 3);
     const color = new THREE.Color();
+    const pale = new THREE.Color("#e7edf6"); // scene sky tint
 
     // Slight electrical downtilt so the lobe reads as street-serving.
     const downtiltDeg = 4;
@@ -75,8 +76,8 @@ export function BeamLobe({
         positions[idx + 2] = Math.cos(azRad) * Math.cos(elRad) * r;
 
         signalRampColor(norm, color);
-        // brighten the hottest core so bloom blooms
-        color.multiplyScalar(0.35 + 1.5 * Math.pow(norm, 2.4));
+        // weak regions dissolve into the sky; the core stays ink-dense
+        color.lerp(pale, 0.85 * Math.pow(1 - norm, 1.6));
         colors[idx] = color.r;
         colors[idx + 1] = color.g;
         colors[idx + 2] = color.b;
@@ -117,7 +118,7 @@ export function BeamLobe({
         fpPositions.push(Math.sin(degToRad(azB)) * rB, 0, Math.cos(degToRad(azB)) * rB);
         for (const n of [Math.max(nA, nB) * 0.6, nA, nB]) {
           signalRampColor(n, color);
-          color.multiplyScalar(0.25 + 0.8 * n);
+          color.lerp(pale, 0.8 * (1 - n));
           fpColors.push(color.r, color.g, color.b);
         }
       }
@@ -149,9 +150,9 @@ export function BeamLobe({
           <meshBasicMaterial
             vertexColors
             transparent
-            opacity={0.34}
+            opacity={0.52}
             side={THREE.DoubleSide}
-            blending={THREE.AdditiveBlending}
+            blending={THREE.NormalBlending}
             depthWrite={false}
             toneMapped={false}
           />
@@ -162,8 +163,8 @@ export function BeamLobe({
             vertexColors
             wireframe
             transparent
-            opacity={0.06}
-            blending={THREE.AdditiveBlending}
+            opacity={0.12}
+            blending={THREE.NormalBlending}
             depthWrite={false}
             toneMapped={false}
           />
@@ -174,8 +175,8 @@ export function BeamLobe({
           <meshBasicMaterial
             vertexColors
             transparent
-            opacity={0.22}
-            blending={THREE.AdditiveBlending}
+            opacity={0.4}
+            blending={THREE.NormalBlending}
             depthWrite={false}
             toneMapped={false}
             side={THREE.DoubleSide}

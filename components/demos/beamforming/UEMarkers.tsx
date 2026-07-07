@@ -139,7 +139,7 @@ export function UEMarkers({
                 color={color}
                 transparent
                 opacity={0.55}
-                blending={THREE.AdditiveBlending}
+                blending={THREE.NormalBlending}
                 depthWrite={false}
                 toneMapped={false}
               />
@@ -153,15 +153,15 @@ export function UEMarkers({
             >
               <div
                 style={{
-                  background: "rgba(10, 20, 40, 0.88)",
-                  border: `1px solid ${color}66`,
-                  borderRadius: 8,
+                  background: "rgba(253, 252, 247, 0.94)",
+                  border: `1px solid ${color}`,
+                  borderRadius: 2,
                   padding: "3px 8px",
                   fontFamily: "ui-monospace, monospace",
                   fontSize: 11,
                   color,
                   whiteSpace: "nowrap",
-                  backdropFilter: "blur(4px)",
+                  boxShadow: "2px 2px 0 rgba(36, 52, 77, 0.18)",
                 }}
               >
                 {rx.toFixed(0)} dBm

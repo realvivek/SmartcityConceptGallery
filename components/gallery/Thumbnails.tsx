@@ -35,8 +35,8 @@ function Defs({ id, color }: { id: string; color: string }) {
   );
 }
 
-const buildingFill = "#16263f";
-const buildingStroke = "#2c4a75";
+const buildingFill = "#e3e9f2";
+const buildingStroke = "#9fb0c8";
 
 function Buildings({ xs }: { xs: [number, number, number][] }) {
   return (
@@ -61,7 +61,7 @@ function Buildings({ xs }: { xs: [number, number, number][] }) {
 function BeamformingThumb() {
   return (
     <svg viewBox="0 0 200 120" className="h-full w-full">
-      <Defs id="bf" color="#3b82f6" />
+      <Defs id="bf" color="#4f46e5" />
       <Buildings xs={[[8, 22, 58], [36, 18, 40], [162, 24, 66], [140, 16, 34]]} />
       {/* main lobe */}
       <path
@@ -72,7 +72,7 @@ function BeamformingThumb() {
       />
       <path
         d="M100 96 C 90 72, 90 48, 100 32 C 110 48, 110 72, 100 96 Z"
-        fill="#3b82f6"
+        fill="#4f46e5"
         opacity="0.5"
         filter="url(#bf-blur)"
         transform="rotate(18 100 96)"
@@ -80,26 +80,26 @@ function BeamformingThumb() {
       {/* side lobes */}
       <path
         d="M100 96 C 88 88, 78 80, 72 66 C 86 70, 94 80, 100 96 Z"
-        fill="#a855f7"
+        fill="#7c3aed"
         opacity="0.55"
         filter="url(#bf-blur)"
       />
       <path
         d="M100 96 C 112 90, 124 84, 132 72 C 118 74, 108 84, 100 96 Z"
-        fill="#a855f7"
+        fill="#7c3aed"
         opacity="0.45"
         filter="url(#bf-blur)"
       />
       {/* pole + array */}
-      <rect x="98.6" y="80" width="2.8" height="34" fill="#2c4a75" />
-      <rect x="92" y="74" width="16" height="8" rx="2" fill="#0e1b33" stroke="#3b82f6" strokeWidth="1" />
+      <rect x="98.6" y="80" width="2.8" height="34" fill="#9fb0c8" />
+      <rect x="92" y="74" width="16" height="8" rx="2" fill="#fdfcf7" stroke="#4f46e5" strokeWidth="1" />
       {[95, 99, 103].map((x) => (
-        <circle key={x} cx={x + 1} cy="78" r="1.2" fill="#60a5fa" />
+        <circle key={x} cx={x + 1} cy="78" r="1.2" fill="#6366f1" />
       ))}
       {/* UE dots */}
-      <circle cx="64" cy="106" r="3" fill="#22d3ee" opacity="0.9" />
-      <circle cx="128" cy="108" r="3" fill="#34d399" opacity="0.9" />
-      <circle cx="170" cy="104" r="3" fill="#f43f5e" opacity="0.8" />
+      <circle cx="64" cy="106" r="3" fill="#0284c7" opacity="0.9" />
+      <circle cx="128" cy="108" r="3" fill="#0f9d8f" opacity="0.9" />
+      <circle cx="170" cy="104" r="3" fill="#e11d48" opacity="0.8" />
     </svg>
   );
 }
@@ -107,23 +107,23 @@ function BeamformingThumb() {
 function DataflowThumb() {
   return (
     <svg viewBox="0 0 200 120" className="h-full w-full">
-      <Defs id="df" color="#a855f7" />
+      <Defs id="df" color="#7c3aed" />
       <Buildings xs={[[10, 20, 44], [148, 26, 60], [178, 14, 36]]} />
       {/* edge node hexagon */}
       <circle cx="100" cy="46" r="26" fill="url(#df-glow)" opacity="0.7" />
       <path
         d="M100 32 l12 7 v14 l-12 7 -12-7 v-14 Z"
-        fill="#0e1b33"
-        stroke="#a855f7"
+        fill="#fdfcf7"
+        stroke="#7c3aed"
         strokeWidth="1.5"
       />
-      <circle cx="100" cy="46" r="3.5" fill="#c084fc" />
+      <circle cx="100" cy="46" r="3.5" fill="#8b5cf6" />
       {/* sensors + flows */}
       {[
-        [30, 100, "#22d3ee"],
-        [64, 108, "#3b82f6"],
-        [136, 106, "#22d3ee"],
-        [170, 98, "#3b82f6"],
+        [30, 100, "#0284c7"],
+        [64, 108, "#4f46e5"],
+        [136, 106, "#0284c7"],
+        [170, 98, "#4f46e5"],
       ].map(([x, y, c], i) => (
         <g key={i}>
           <path
@@ -139,9 +139,9 @@ function DataflowThumb() {
         </g>
       ))}
       {/* packets */}
-      <circle cx="66" cy="76" r="2" fill="#e879f9" />
-      <circle cx="122" cy="72" r="2" fill="#e879f9" />
-      <circle cx="88" cy="62" r="2" fill="#e879f9" />
+      <circle cx="66" cy="76" r="2" fill="#c026d3" />
+      <circle cx="122" cy="72" r="2" fill="#c026d3" />
+      <circle cx="88" cy="62" r="2" fill="#c026d3" />
     </svg>
   );
 }
@@ -149,7 +149,7 @@ function DataflowThumb() {
 function CoverageThumb() {
   return (
     <svg viewBox="0 0 200 120" className="h-full w-full">
-      <Defs id="cv" color="#22d3ee" />
+      <Defs id="cv" color="#0284c7" />
       <Buildings xs={[[46, 18, 42], [92, 22, 58], [128, 14, 30]]} />
       {/* coverage blooms */}
       <circle cx="52" cy="98" r="40" fill="url(#cv-glow)" opacity="0.75" />
@@ -162,13 +162,13 @@ function CoverageThumb() {
         [168, 86],
       ].map(([x, y], i) => (
         <g key={i}>
-          <rect x={x - 1.2} y={y} width="2.4" height={98 - y + 14} fill="#2c4a75" />
-          <circle cx={x} cy={y - 3} r="3.2" fill="#22d3ee" />
-          <circle cx={x} cy={y - 3} r="6" fill="none" stroke="#22d3ee" strokeWidth="0.9" opacity="0.5" />
+          <rect x={x - 1.2} y={y} width="2.4" height={98 - y + 14} fill="#9fb0c8" />
+          <circle cx={x} cy={y - 3} r="3.2" fill="#0284c7" />
+          <circle cx={x} cy={y - 3} r="6" fill="none" stroke="#0284c7" strokeWidth="0.9" opacity="0.5" />
         </g>
       ))}
       {/* shadow zone behind tall building */}
-      <path d="M114 62 L150 120 L92 120 Z" fill="#0a1428" opacity="0.55" />
+      <path d="M114 62 L150 120 L92 120 Z" fill="#24344d" opacity="0.55" />
     </svg>
   );
 }
@@ -191,15 +191,15 @@ function InterferenceThumb() {
           cx={x}
           cy={y}
           r={r}
-          fill={i % 3 === 0 ? "#f59e0b" : "#a855f7"}
+          fill={i % 3 === 0 ? "#f59e0b" : "#7c3aed"}
           opacity={o * 0.8}
           filter="url(#if-blur)"
         />
       ))}
       {/* clean cell in the open */}
-      <circle cx="176" cy="98" r="18" fill="#22d3ee" opacity="0.16" />
-      <circle cx="176" cy="90" r="3" fill="#22d3ee" />
-      <rect x="174.9" y="92" width="2.2" height="22" fill="#2c4a75" />
+      <circle cx="176" cy="98" r="18" fill="#0284c7" opacity="0.16" />
+      <circle cx="176" cy="90" r="3" fill="#0284c7" />
+      <rect x="174.9" y="92" width="2.2" height="22" fill="#9fb0c8" />
     </svg>
   );
 }
@@ -207,13 +207,13 @@ function InterferenceThumb() {
 function RadiationThumb() {
   return (
     <svg viewBox="0 0 200 120" className="h-full w-full">
-      <Defs id="rp" color="#34d399" />
+      <Defs id="rp" color="#0f9d8f" />
       {/* canyon walls */}
       <rect x="6" y="20" width="30" height="100" rx="2" fill={buildingFill} stroke={buildingStroke} strokeWidth="0.75" />
       <rect x="164" y="28" width="30" height="92" rx="2" fill={buildingFill} stroke={buildingStroke} strokeWidth="0.75" />
       {/* pole */}
-      <rect x="98.5" y="52" width="3" height="62" fill="#2c4a75" />
-      <rect x="94" y="44" width="12" height="12" rx="2" fill="#0e1b33" stroke="#34d399" strokeWidth="1.2" />
+      <rect x="98.5" y="52" width="3" height="62" fill="#9fb0c8" />
+      <rect x="94" y="44" width="12" height="12" rx="2" fill="#fdfcf7" stroke="#0f9d8f" strokeWidth="1.2" />
       {/* radiation pattern: main lobe + back lobe, classic polar shape */}
       <path
         d="M106 50 C 130 34, 158 40, 170 50 C 158 60, 130 66, 106 50 Z"
@@ -221,22 +221,22 @@ function RadiationThumb() {
       />
       <path
         d="M106 50 C 124 40, 146 44, 156 50 C 146 56, 124 60, 106 50 Z"
-        fill="#34d399"
+        fill="#0f9d8f"
         opacity="0.5"
         filter="url(#rp-blur)"
       />
       <path
         d="M94 50 C 84 44, 74 46, 68 50 C 74 54, 84 56, 94 50 Z"
-        fill="#34d399"
+        fill="#0f9d8f"
         opacity="0.3"
         filter="url(#rp-blur)"
       />
       {/* gain rings */}
       {[14, 26, 38].map((r) => (
-        <circle key={r} cx="100" cy="50" r={r} fill="none" stroke="#34d399" strokeWidth="0.5" opacity="0.25" strokeDasharray="2 4" />
+        <circle key={r} cx="100" cy="50" r={r} fill="none" stroke="#0f9d8f" strokeWidth="0.5" opacity="0.25" strokeDasharray="2 4" />
       ))}
       {/* street illumination stripe */}
-      <ellipse cx="136" cy="112" rx="34" ry="5" fill="#34d399" opacity="0.25" filter="url(#rp-blur)" />
+      <ellipse cx="136" cy="112" rx="34" ry="5" fill="#0f9d8f" opacity="0.25" filter="url(#rp-blur)" />
     </svg>
   );
 }
@@ -250,7 +250,7 @@ function WorkloadThumb() {
   ];
   return (
     <svg viewBox="0 0 200 120" className="h-full w-full">
-      <Defs id="wl" color="#a855f7" />
+      <Defs id="wl" color="#7c3aed" />
       {links.map(([a, b], i) => (
         <line
           key={i}
@@ -258,7 +258,7 @@ function WorkloadThumb() {
           y1={nodes[a][1]}
           x2={nodes[b][0]}
           y2={nodes[b][1]}
-          stroke={i % 2 ? "#3b82f6" : "#a855f7"}
+          stroke={i % 2 ? "#4f46e5" : "#7c3aed"}
           strokeWidth="1.2"
           strokeDasharray="4 4"
           opacity="0.55"
@@ -269,19 +269,19 @@ function WorkloadThumb() {
           <circle cx={x} cy={y} r="14" fill="url(#wl-glow)" opacity="0.5" />
           <path
             d={`M${x} ${y - 8} l7 4 v8 l-7 4 -7-4 v-8 Z`}
-            fill="#0e1b33"
-            stroke={i === 4 ? "#f43f5e" : "#a855f7"}
+            fill="#fdfcf7"
+            stroke={i === 4 ? "#e11d48" : "#7c3aed"}
             strokeWidth="1.3"
           />
         </g>
       ))}
       {/* workload orbs */}
-      <circle cx="100" cy="26" r="4" fill="#22d3ee" />
-      <circle cx="70" cy="88" r="4" fill="#34d399" />
+      <circle cx="100" cy="26" r="4" fill="#0284c7" />
+      <circle cx="70" cy="88" r="4" fill="#0f9d8f" />
       <circle cx="136" cy="90" r="4" fill="#f59e0b" />
       {/* score chip */}
-      <rect x="148" y="8" width="44" height="14" rx="7" fill="#0e1b33" stroke="#34d399" strokeWidth="1" />
-      <text x="170" y="18" textAnchor="middle" fontSize="9" fill="#34d399" fontFamily="monospace">
+      <rect x="148" y="8" width="44" height="14" rx="7" fill="#fdfcf7" stroke="#0f9d8f" strokeWidth="1" />
+      <text x="170" y="18" textAnchor="middle" fontSize="9" fill="#0f9d8f" fontFamily="monospace">
         94/100
       </text>
     </svg>
