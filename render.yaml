@@ -1,0 +1,14 @@
+# Render Blueprint — deploy with one click by connecting this repo at
+# https://dashboard.render.com/blueprints
+services:
+  - type: web
+    name: smartcity-concept-gallery
+    runtime: node
+    plan: free
+    region: oregon
+    buildCommand: npm ci && npm run build
+    startCommand: npm run start
+    healthCheckPath: /
+    envVars:
+      - key: NODE_VERSION
+        value: 22.12.0
