@@ -127,7 +127,7 @@ export function DemoModal({ demo, onClose }: DemoModalProps) {
               {/* scene */}
               <div
                 ref={canvasAreaRef}
-                className="relative min-h-[46vh] flex-1 lg:min-h-0"
+                className="relative min-h-[46vh] flex-1 overflow-hidden lg:min-h-0"
               >
                 <DemoComponent key={resetKey} />
               </div>

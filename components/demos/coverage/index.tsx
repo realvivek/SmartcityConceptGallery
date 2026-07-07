@@ -28,7 +28,7 @@ import {
 
 const MAX_CUSTOM = 6;
 const CUSTOM_POLE_HEIGHT = 9;
-const DEFAULT_STEP = 2;
+const DEFAULT_STEP = 5;
 /** Stagger between two cells activated by one densify click, ms. */
 const ACTIVATION_STAGGER_MS = 380;
 

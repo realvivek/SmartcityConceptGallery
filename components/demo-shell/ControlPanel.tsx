@@ -29,9 +29,11 @@ export function ControlPanel({
   return (
     <div
       className={cn(
-        "pointer-events-auto absolute top-3 left-3 z-10 w-[17rem] max-w-[calc(100%-1.5rem)] select-none",
+        "pointer-events-auto absolute top-3 left-3 w-[17rem] max-w-[calc(100%-1.5rem)] select-none",
         className
       )}
+      // above drei <Html> overlays, which use z-indices up to ~16777271
+      style={{ zIndex: 16777272 }}
     >
       <div className="glass-panel overflow-hidden rounded-xl shadow-[0_8px_32px_rgba(2,8,23,0.6)]">
         <button

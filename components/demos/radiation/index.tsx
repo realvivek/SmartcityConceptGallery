@@ -58,9 +58,9 @@ export default function RadiationDemo() {
         maxDistance={120}
         fog={{ near: 90, far: 320 }}
       >
-        <CityLighting />
+        <CityLighting intensity={1.45} />
         <GroundPlane />
-        <CityBuildings buildings={CANYON_BUILDINGS} />
+        <CityBuildings buildings={CANYON_BUILDINGS} color="#20385e" />
         <PoleWithAntenna
           height={POLE_HEIGHT}
           headingDeg={azimuthDeg}
