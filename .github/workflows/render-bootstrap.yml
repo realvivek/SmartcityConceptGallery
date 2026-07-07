@@ -1,0 +1,95 @@
+name: render-bootstrap
+
+# One-shot bootstrap: creates the Render web service for this repo via the
+# Render API (using the RENDER_API_KEY repo secret), waits for the first
+# deploy to go live, and prints the public URL. Safe to re-run — if the
+# service already exists it just reports its status and URL.
+on:
+  workflow_dispatch:
+
+jobs:
+  bootstrap:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create Render service and wait for deploy
+        env:
+          RENDER_API_KEY: ${{ secrets.RENDER_API_KEY }}
+          OWNER_ID: tea-d95ciprtqb8s73emcicg
+          SERVICE_NAME: smartcity-concept-gallery
+          REPO_URL: https://github.com/realvivek/SmartcityConceptGallery
+        run: |
+          set -uo pipefail
+          if [ -z "${RENDER_API_KEY:-}" ]; then
+            echo "::error::RENDER_API_KEY secret is not set"; exit 1
+          fi
+          auth="Authorization: Bearer $RENDER_API_KEY"
+          api="https://api.render.com/v1"
+
+          echo "Looking for existing service named $SERVICE_NAME…"
+          sid=$(curl -fsS -H "$auth" "$api/services?name=$SERVICE_NAME&ownerId=$OWNER_ID&limit=1" \
+            | jq -r '.[0].service.id // empty')
+
+          if [ -z "$sid" ]; then
+            echo "Creating service…"
+            payload=$(jq -n \
+              --arg owner "$OWNER_ID" --arg name "$SERVICE_NAME" --arg repo "$REPO_URL" \
+              '{
+                type: "web_service",
+                name: $name,
+                ownerId: $owner,
+                repo: $repo,
+                branch: "main",
+                autoDeploy: "yes",
+                envVars: [{key: "NODE_VERSION", value: "22.12.0"}],
+                serviceDetails: {
+                  runtime: "node",
+                  plan: "free",
+                  region: "oregon",
+                  envSpecificDetails: {
+                    buildCommand: "npm ci && npm run build",
+                    startCommand: "npm run start"
+                  }
+                }
+              }')
+            resp=$(curl -sS -X POST -H "$auth" -H "Content-Type: application/json" \
+              -d "$payload" "$api/services")
+            sid=$(echo "$resp" | jq -r '.service.id // empty')
+            if [ -z "$sid" ]; then
+              # older API versions use serviceDetails.env instead of runtime
+              echo "First create attempt failed, retrying with legacy field… ($resp)"
+              payload=$(echo "$payload" | jq '.serviceDetails |= (.env = .runtime | del(.runtime))')
+              resp=$(curl -sS -X POST -H "$auth" -H "Content-Type: application/json" \
+                -d "$payload" "$api/services")
+              sid=$(echo "$resp" | jq -r '.service.id // empty')
+            fi
+            if [ -z "$sid" ]; then
+              echo "::error::Service creation failed: $resp"; exit 1
+            fi
+            echo "Created service $sid"
+          else
+            echo "Service already exists: $sid"
+          fi
+
+          url=$(curl -fsS -H "$auth" "$api/services/$sid" | jq -r '.serviceDetails.url // empty')
+          echo "SERVICE_ID=$sid"
+          echo "SERVICE_URL=$url"
+
+          echo "Waiting for the latest deploy to go live (up to ~18 min)…"
+          for i in $(seq 1 60); do
+            deploy=$(curl -fsS -H "$auth" "$api/services/$sid/deploys?limit=1" | jq -r '.[0].deploy')
+            status=$(echo "$deploy" | jq -r '.status')
+            commit=$(echo "$deploy" | jq -r '.commit.id // "?"' | cut -c1-8)
+            echo "  [$i] deploy status: $status (commit $commit)"
+            case "$status" in
+              live)
+                echo "DEPLOY_LIVE=true"
+                echo "DEPLOY_COMMIT=$commit"
+                echo "FINAL_URL=$url"
+                exit 0 ;;
+              build_failed|update_failed|deactivated|canceled)
+                echo "::error::Deploy ended with status $status"; exit 1 ;;
+            esac
+            sleep 18
+          done
+          echo "::warning::Timed out waiting; check the Render dashboard. URL: $url"
+          echo "FINAL_URL=$url"

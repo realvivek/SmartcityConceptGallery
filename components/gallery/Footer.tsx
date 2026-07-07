@@ -28,10 +28,6 @@ export function Footer() {
               environments. All scenes use procedural geometry and simplified,
               physically plausible RF models — no external data required.
             </p>
-            <p className="text-[13px] text-muted-foreground">
-              Built with{" "}
-              <span className="font-medium text-ink">Claude Fable 5</span>.
-            </p>
           </div>
 
           <div className="space-y-3">
