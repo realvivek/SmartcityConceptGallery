@@ -24,12 +24,20 @@ export function ControlPanel({
   className?: string;
   defaultOpen?: boolean;
 }) {
-  const [open, setOpen] = useState(defaultOpen);
+  // On phones the expanded panel would blanket the small scene, so it
+  // starts collapsed below the lg breakpoint. (Demos are client-only,
+  // so window is available on first render.)
+  const [open, setOpen] = useState(
+    () =>
+      defaultOpen &&
+      (typeof window === "undefined" ||
+        window.matchMedia("(min-width: 1024px)").matches)
+  );
 
   return (
     <div
       className={cn(
-        "pointer-events-auto absolute top-3 left-3 w-[17rem] max-w-[calc(100%-1.5rem)] select-none",
+        "pointer-events-auto absolute top-3 left-3 w-[15rem] max-w-[calc(100%-1.5rem)] select-none lg:w-[17rem]",
         className
       )}
       // above drei <Html> overlays, which use z-indices up to ~16777271
@@ -61,7 +69,7 @@ export function ControlPanel({
               exit={{ height: 0, opacity: 0 }}
               transition={{ duration: 0.25, ease: [0.4, 0, 0.2, 1] }}
             >
-              <div className="max-h-[52vh] space-y-4 overflow-y-auto px-4 pt-1 pb-4">
+              <div className="max-h-[30vh] space-y-4 overflow-y-auto px-4 pt-1 pb-4 lg:max-h-[52vh]">
                 {children}
               </div>
             </motion.div>
