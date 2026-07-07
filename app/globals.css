@@ -1,0 +1,117 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  --background: #0a1428;
+  --foreground: #e2e8f0;
+  --card: #0e1b33;
+  --card-foreground: #e2e8f0;
+  --popover: #0e1b33;
+  --popover-foreground: #e2e8f0;
+  --primary: #3b82f6;
+  --primary-foreground: #f8fafc;
+  --secondary: #14243f;
+  --secondary-foreground: #cbd5e1;
+  --muted: #12203a;
+  --muted-foreground: #8ba3c7;
+  --accent: #a855f7;
+  --accent-foreground: #f8fafc;
+  --destructive: #f43f5e;
+  --destructive-foreground: #f8fafc;
+  --border: rgba(148, 179, 222, 0.14);
+  --input: rgba(148, 179, 222, 0.2);
+  --ring: #3b82f6;
+  --radius: 0.75rem;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-signal-blue: #3b82f6;
+  --color-signal-purple: #a855f7;
+  --color-signal-cyan: #22d3ee;
+  --color-signal-emerald: #34d399;
+  --color-signal-amber: #f59e0b;
+  --color-signal-rose: #f43f5e;
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, -apple-system,
+    "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas,
+    "Liberation Mono", monospace;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-background text-foreground antialiased;
+    background-image: radial-gradient(
+        1200px 600px at 80% -10%,
+        rgba(59, 130, 246, 0.08),
+        transparent 60%
+      ),
+      radial-gradient(
+        900px 500px at 10% 20%,
+        rgba(168, 85, 247, 0.06),
+        transparent 55%
+      );
+  }
+  ::selection {
+    background: rgba(59, 130, 246, 0.35);
+  }
+}
+
+@layer utilities {
+  .glass-panel {
+    @apply border border-white/10 bg-[#0e1b33]/80 backdrop-blur-md;
+  }
+  .text-glow-blue {
+    text-shadow: 0 0 24px rgba(59, 130, 246, 0.5);
+  }
+  .text-glow-purple {
+    text-shadow: 0 0 24px rgba(168, 85, 247, 0.5);
+  }
+}
+
+/* Thin, dark scrollbars for panels */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(139, 163, 199, 0.3) transparent;
+}
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+*::-webkit-scrollbar-thumb {
+  background: rgba(139, 163, 199, 0.3);
+  border-radius: 9999px;
+}
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
