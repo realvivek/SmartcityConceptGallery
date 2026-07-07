@@ -7,7 +7,7 @@ import { Html } from "@react-three/drei";
 import {
   RF_COLORS,
   fsplDb,
-  generateCity,
+  generateCityScape,
   halfPowerBeamwidthDeg,
 } from "@/lib/three-utils";
 import { DemoCanvas } from "@/components/demo-shell/DemoCanvas";
@@ -18,8 +18,8 @@ import {
   StatRow,
   ToggleRow,
 } from "@/components/demo-shell/ControlPanel";
-import { CityBuildings } from "@/components/three/CityBuildings";
-import { CityLighting, GroundPlane } from "@/components/three/SceneEnvironment";
+import { CityLighting } from "@/components/three/SceneEnvironment";
+import { CityScape } from "@/components/three/CityScape";
 import { GlowEffects } from "@/components/three/GlowEffects";
 import { PoleWithAntenna } from "@/components/three/PoleWithAntenna";
 import { BeamLobe } from "./BeamLobe";
@@ -46,9 +46,9 @@ export default function BeamformingDemo() {
   const [showFootprint, setShowFootprint] = useState(true);
   const [ues, setUes] = useState<UE[]>(DEFAULT_UES);
 
-  const buildings = useMemo(
+  const scape = useMemo(
     () =>
-      generateCity({
+      generateCityScape({
         seed: 11,
         blocks: 5,
         blockSize: 24,
@@ -59,6 +59,7 @@ export default function BeamformingDemo() {
       }),
     []
   );
+  const buildings = scape.buildings;
 
   const antennaPos = useMemo(
     () => new THREE.Vector3(0, ANTENNA_HEIGHT, 0),
@@ -85,8 +86,7 @@ export default function BeamformingDemo() {
         maxDistance={240}
       >
         <CityLighting />
-        <GroundPlane />
-        <CityBuildings buildings={buildings} />
+        <CityScape data={scape} />
         <PoleWithAntenna
           height={9}
           headingDeg={0}

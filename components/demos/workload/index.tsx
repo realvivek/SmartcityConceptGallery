@@ -3,7 +3,7 @@
 import { useMemo, useState } from "react";
 import * as THREE from "three";
 
-import { RF_COLORS, clamp, generateCity, latencyMs } from "@/lib/three-utils";
+import { RF_COLORS, clamp, generateCityScape, latencyMs } from "@/lib/three-utils";
 import { DemoCanvas } from "@/components/demo-shell/DemoCanvas";
 import {
   ControlHint,
@@ -12,8 +12,8 @@ import {
   ToggleRow,
 } from "@/components/demo-shell/ControlPanel";
 import { Button } from "@/components/ui/button";
-import { CityBuildings } from "@/components/three/CityBuildings";
-import { CityLighting, GroundPlane } from "@/components/three/SceneEnvironment";
+import { CityLighting } from "@/components/three/SceneEnvironment";
+import { CityScape } from "@/components/three/CityScape";
 import { GlowEffects } from "@/components/three/GlowEffects";
 import { NodeMarkers, type EdgeNodeState } from "./NodeMarkers";
 import {
@@ -179,27 +179,29 @@ export default function WorkloadDemo() {
   const [showSources, setShowSources] = useState(true);
   const [showFlows, setShowFlows] = useState(true);
 
-  const buildings = useMemo(
-    () =>
-      generateCity({
-        seed: 47,
-        blocks: 5,
-        blockSize: 26,
-        street: 14,
-        minHeight: 6,
-        maxHeight: 40,
-        density: 0.8,
-        clearRadius: 10,
-      }).filter((b) =>
-        // carve out breathing room around the five edge sites
+  const scape = useMemo(() => {
+    const raw = generateCityScape({
+      seed: 47,
+      blocks: 5,
+      blockSize: 26,
+      street: 14,
+      minHeight: 6,
+      maxHeight: 40,
+      density: 0.8,
+      clearRadius: 10,
+    });
+    // carve out breathing room around the five edge sites
+    return {
+      ...raw,
+      buildings: raw.buildings.filter((b) =>
         EDGE_NODES.every(
           (n) =>
             Math.abs(n.x - b.x) > b.width / 2 + 3.5 ||
             Math.abs(n.z - b.z) > b.depth / 2 + 3.5
         )
       ),
-    []
-  );
+    };
+  }, []);
 
   /** Everything derived from the assignment map — never touched per frame. */
   const placement = useMemo(() => {
@@ -342,8 +344,7 @@ export default function WorkloadDemo() {
         maxDistance={250}
       >
         <CityLighting />
-        <GroundPlane />
-        <CityBuildings buildings={buildings} />
+        <CityScape data={scape} />
         <NodeMarkers
           nodes={placement.nodes}
           capacity={NODE_CAPACITY}

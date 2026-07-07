@@ -60,6 +60,31 @@ export default function RadiationDemo() {
       >
         <CityLighting />
         <GroundPlane />
+        {/* canyon street: asphalt, lane dashes, sidewalk trees */}
+        <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.02, 0]} receiveShadow>
+          <planeGeometry args={[30, 130]} />
+          <meshStandardMaterial color="#c3c8cf" roughness={0.92} />
+        </mesh>
+        {Array.from({ length: 13 }, (_, i) => (
+          <mesh key={i} position={[0, 0.05, -60 + i * 10]}>
+            <boxGeometry args={[0.3, 0.02, 2.4]} />
+            <meshStandardMaterial color="#f6f5ee" roughness={0.8} />
+          </mesh>
+        ))}
+        {([[-18.5, -30], [-18.5, 12], [18.5, -12], [18.5, 32]] as const).map(
+          ([tx, tz]) => (
+            <group key={`${tx}-${tz}`} position={[tx, 0, tz]}>
+              <mesh position={[0, 0.8, 0]} castShadow>
+                <cylinderGeometry args={[0.14, 0.2, 1.6, 6]} />
+                <meshStandardMaterial color="#8a6f52" roughness={0.9} />
+              </mesh>
+              <mesh position={[0, 2.6, 0]} castShadow>
+                <icosahedronGeometry args={[1.5, 1]} />
+                <meshStandardMaterial color="#7fae67" roughness={0.95} flatShading />
+              </mesh>
+            </group>
+          )
+        )}
         <CityBuildings buildings={CANYON_BUILDINGS} color="#d3cec2" />
         <PoleWithAntenna
           height={POLE_HEIGHT}

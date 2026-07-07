@@ -10,9 +10,8 @@ import { Slider } from "@/components/ui/slider";
 import { Switch } from "@/components/ui/switch";
 
 /**
- * Floating drafting-sheet control panel used by every demo — paper,
- * hairline ink border, corner ticks, hard offset shadow. Collapsible so
- * it never permanently obstructs the scene.
+ * Floating control panel used by every demo — clean white glass with a
+ * soft shadow. Collapsible so it never permanently obstructs the scene.
  */
 export function ControlPanel({
   title = "Controls",
@@ -36,7 +35,7 @@ export function ControlPanel({
       // above drei <Html> overlays, which use z-indices up to ~16777271
       style={{ zIndex: 16777272 }}
     >
-      <div className="paper-panel corner-ticks relative overflow-hidden rounded-md">
+      <div className="scene-panel relative overflow-hidden rounded-xl">
         <button
           type="button"
           onClick={() => setOpen((o) => !o)}
@@ -44,7 +43,7 @@ export function ControlPanel({
           aria-expanded={open}
         >
           <SlidersHorizontal className="size-3.5 text-primary" />
-          <span className="flex-1 font-mono text-[11px] font-semibold tracking-[0.18em] text-ink uppercase">
+          <span className="font-display flex-1 text-[13px] font-semibold text-ink">
             {title}
           </span>
           <ChevronDown

@@ -4,6 +4,7 @@ import { type ReactNode, Suspense } from "react";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls, Sky } from "@react-three/drei";
 import { RF_COLORS } from "@/lib/three-utils";
+import { Clouds } from "@/components/three/Clouds";
 
 interface DemoCanvasProps {
   children: ReactNode;
@@ -19,6 +20,8 @@ interface DemoCanvasProps {
   autoRotate?: boolean;
   autoRotateSpeed?: number;
   fog?: { near: number; far: number; color?: string } | false;
+  /** Drifting sprite clouds under the sky dome. */
+  clouds?: boolean;
   className?: string;
 }
 
@@ -39,6 +42,7 @@ export function DemoCanvas({
   autoRotate = false,
   autoRotateSpeed = 0.4,
   fog = { near: 120, far: 420 },
+  clouds = true,
   className,
 }: DemoCanvasProps) {
   return (
@@ -69,6 +73,7 @@ export function DemoCanvas({
         mieCoefficient={0.004}
         mieDirectionalG={0.85}
       />
+      {clouds && <Clouds />}
       <Suspense fallback={null}>{children}</Suspense>
       <OrbitControls
         makeDefault

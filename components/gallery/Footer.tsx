@@ -12,7 +12,7 @@ const TECH = [
 
 export function Footer() {
   return (
-    <footer className="border-t border-ink/15 bg-card/70">
+    <footer className="border-t border-ink/8 bg-card/70">
       <div className="mx-auto max-w-6xl px-6 py-12">
         <div className="flex flex-col gap-10 md:flex-row md:justify-between">
           <div className="max-w-sm space-y-3">
@@ -35,7 +35,7 @@ export function Footer() {
           </div>
 
           <div className="space-y-3">
-            <p className="font-mono text-[10px] font-semibold tracking-[0.2em] text-muted-foreground uppercase">
+            <p className="text-[11px] font-semibold tracking-[0.14em] text-muted-foreground uppercase">
               Tech stack
             </p>
             <ul className="grid grid-cols-2 gap-x-8 gap-y-1.5 text-[13px] text-muted-foreground">
@@ -46,7 +46,7 @@ export function Footer() {
           </div>
 
           <div className="space-y-3">
-            <p className="font-mono text-[10px] font-semibold tracking-[0.2em] text-muted-foreground uppercase">
+            <p className="text-[11px] font-semibold tracking-[0.14em] text-muted-foreground uppercase">
               Source
             </p>
             <a
@@ -65,7 +65,7 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="mt-10 border-t border-ink/10 pt-6 text-center font-mono text-[11px] text-muted-foreground/80">
+        <div className="mt-10 border-t border-ink/8 pt-6 text-center text-xs text-muted-foreground/80">
           Simplified models for visualization — free-space path loss, uniform
           linear arrays, and clutter proxies. Not a substitute for real RF
           planning tools.
