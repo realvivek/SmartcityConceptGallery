@@ -1,0 +1,117 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  --background: #f7f8fa;
+  --foreground: #1c2634;
+  --card: #ffffff;
+  --card-foreground: #1c2634;
+  --popover: #ffffff;
+  --popover-foreground: #1c2634;
+  --primary: #2563eb;
+  --primary-foreground: #ffffff;
+  --secondary: #eef1f5;
+  --secondary-foreground: #33415580;
+  --muted: #eef1f5;
+  --muted-foreground: #5c6b7f;
+  --accent: #2563eb;
+  --accent-foreground: #ffffff;
+  --destructive: #e11d48;
+  --destructive-foreground: #ffffff;
+  --border: rgba(28, 38, 52, 0.1);
+  --input: rgba(28, 38, 52, 0.16);
+  --ring: #2563eb;
+  --radius: 0.75rem;
+  --ink: #1c2634;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-ink: var(--ink);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, -apple-system,
+    "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-display: var(--font-space-grotesk), var(--font-inter), ui-sans-serif,
+    system-ui, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas,
+    "Liberation Mono", monospace;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-background text-foreground antialiased;
+    background-image:
+      radial-gradient(
+        1000px 480px at 88% -6%,
+        rgba(37, 99, 235, 0.05),
+        transparent 60%
+      ),
+      radial-gradient(
+        760px 420px at 6% 14%,
+        rgba(14, 165, 233, 0.04),
+        transparent 55%
+      );
+  }
+  ::selection {
+    background: rgba(37, 99, 235, 0.18);
+  }
+}
+
+@layer utilities {
+  .font-display {
+    font-family: var(--font-display);
+  }
+  /* Soft floating panel used over 3D scenes */
+  .scene-panel {
+    @apply border border-ink/8 bg-white/92 backdrop-blur-md;
+    box-shadow:
+      0 1px 2px rgba(16, 24, 40, 0.05),
+      0 12px 32px rgba(16, 24, 40, 0.12);
+  }
+}
+
+/* Thin light scrollbars */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(28, 38, 52, 0.22) transparent;
+}
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+*::-webkit-scrollbar-thumb {
+  background: rgba(28, 38, 52, 0.22);
+  border-radius: 9999px;
+}
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
