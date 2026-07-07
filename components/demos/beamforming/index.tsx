@@ -175,17 +175,17 @@ export default function BeamformingDemo() {
           checked={showFootprint}
           onCheckedChange={setShowFootprint}
         />
-        <div className="space-y-1.5 rounded-lg border border-white/8 bg-white/[0.03] p-3">
+        <div className="space-y-1.5 rounded-md border border-ink/20 bg-ink/[0.04] p-3">
           <StatRow label="Half-power beamwidth" value={`${hpbw.toFixed(1)}°`} />
           <StatRow
             label="Array gain"
             value={`+${arrayGainDb.toFixed(1)} dB`}
-            accent="text-purple-300"
+            accent="text-violet-700"
           />
           <StatRow
             label="Users in scene"
             value={`${ues.length}/${MAX_UES}`}
-            accent="text-cyan-300"
+            accent="text-sky-700"
           />
         </div>
         <ControlHint>
@@ -216,8 +216,8 @@ function PathLossRings({
             <meshBasicMaterial
               color={RF_COLORS.blue}
               transparent
-              opacity={0.28}
-              blending={THREE.AdditiveBlending}
+              opacity={0.45}
+              blending={THREE.NormalBlending}
               depthWrite={false}
               toneMapped={false}
             />
@@ -232,11 +232,12 @@ function PathLossRings({
               style={{
                 fontFamily: "ui-monospace, monospace",
                 fontSize: 10,
-                color: "#7fa6e8",
-                background: "rgba(10,20,40,0.75)",
+                color: "#4338ca",
+                background: "rgba(253, 252, 247, 0.94)",
                 padding: "2px 6px",
-                borderRadius: 6,
-                border: "1px solid rgba(59,130,246,0.25)",
+                borderRadius: 2,
+                border: "1px solid rgba(79, 70, 229, 0.45)",
+                boxShadow: "2px 2px 0 rgba(36, 52, 77, 0.18)",
                 whiteSpace: "nowrap",
               }}
             >

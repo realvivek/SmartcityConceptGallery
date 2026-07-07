@@ -2,7 +2,7 @@
 
 import { type ReactNode, Suspense } from "react";
 import { Canvas } from "@react-three/fiber";
-import { OrbitControls } from "@react-three/drei";
+import { OrbitControls, Sky } from "@react-three/drei";
 import { RF_COLORS } from "@/lib/three-utils";
 
 interface DemoCanvasProps {
@@ -60,6 +60,15 @@ export function DemoCanvas({
           args={[fog.color ?? RF_COLORS.navy, fog.near, fog.far]}
         />
       )}
+      {/* procedural morning sky — matches the sun in CityLighting */}
+      <Sky
+        distance={2000}
+        sunPosition={[70, 55, 45]}
+        turbidity={6}
+        rayleigh={0.35}
+        mieCoefficient={0.004}
+        mieDirectionalG={0.85}
+      />
       <Suspense fallback={null}>{children}</Suspense>
       <OrbitControls
         makeDefault

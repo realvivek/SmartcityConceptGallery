@@ -52,7 +52,7 @@ export function DominanceMap({ margins, visible }: DominanceMapProps) {
   // gentle pulse so the dominance regions read as live signal, not paint
   useFrame(({ clock }) => {
     const m = matRef.current;
-    if (m) m.opacity = 0.82 + 0.1 * Math.sin(clock.elapsedTime * 0.9);
+    if (m) m.opacity = 0.72 + 0.08 * Math.sin(clock.elapsedTime * 0.9);
   });
 
   return (
@@ -62,8 +62,8 @@ export function DominanceMap({ margins, visible }: DominanceMapProps) {
         ref={matRef}
         map={texture}
         transparent
-        opacity={0.85}
-        blending={THREE.AdditiveBlending}
+        opacity={0.72}
+        blending={THREE.NormalBlending}
         depthWrite={false}
         toneMapped={false}
       />

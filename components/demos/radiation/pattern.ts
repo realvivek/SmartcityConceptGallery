@@ -129,7 +129,7 @@ export function computeStreetField(
   const cols = X_STEPS + 1;
   const rows = Z_STEPS + 1;
   const positions = new Float32Array(cols * rows * 3);
-  const colors = new Float32Array(cols * rows * 3);
+  const colors = new Float32Array(cols * rows * 4); // RGBA
   const rx = new Float32Array(cols * rows);
   const rowMax = new Float32Array(rows).fill(-Infinity);
 
@@ -169,12 +169,12 @@ export function computeStreetField(
   for (let i = 0; i < rx.length; i++) {
     const t = clamp((rx[i] - BAD_DBM) / (GOOD_DBM - BAD_DBM), 0, 1);
     qualityColor(t, color);
-    // additive blending: fading toward black makes weak samples vanish
+    // weak samples fade out by ALPHA so the paper street shows through
     const glow = clamp((rx[i] - FADE_DBM) / (GOOD_DBM - FADE_DBM), 0, 1);
-    color.multiplyScalar(0.95 * Math.pow(glow, 1.6));
-    colors[i * 3] = color.r;
-    colors[i * 3 + 1] = color.g;
-    colors[i * 3 + 2] = color.b;
+    colors[i * 4] = color.r;
+    colors[i * 4 + 1] = color.g;
+    colors[i * 4 + 2] = color.b;
+    colors[i * 4 + 3] = Math.pow(glow, 1.5);
   }
 
   const indices = new Uint32Array(X_STEPS * Z_STEPS * 6);

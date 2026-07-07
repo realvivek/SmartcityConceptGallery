@@ -124,7 +124,7 @@ function EdgeNode({
               color={RF_COLORS.purple}
               transparent
               opacity={0.4}
-              blending={THREE.AdditiveBlending}
+              blending={THREE.NormalBlending}
               depthWrite={false}
               toneMapped={false}
             />
@@ -146,7 +146,7 @@ function EdgeNode({
             color={haloColor}
             transparent
             opacity={active ? 0.4 : 0.18}
-            blending={THREE.AdditiveBlending}
+            blending={THREE.NormalBlending}
             depthWrite={false}
             toneMapped={false}
           />
@@ -164,11 +164,12 @@ function EdgeNode({
           style={{
             fontFamily: "ui-monospace, monospace",
             fontSize: 10,
-            color: active ? haloColor : "#7fa6e8",
-            background: "rgba(10, 20, 40, 0.82)",
+            color: active ? haloColor : "#6d28d9",
+            background: "rgba(253, 252, 247, 0.94)",
             padding: "3px 8px",
-            borderRadius: 8,
-            border: `1px solid ${active ? `${haloColor}55` : "rgba(168,85,247,0.3)"}`,
+            borderRadius: 2,
+            border: `1px solid ${active ? haloColor : "rgba(124, 58, 237, 0.5)"}`,
+            boxShadow: "2px 2px 0 rgba(36, 52, 77, 0.18)",
             whiteSpace: "nowrap",
           }}
         >

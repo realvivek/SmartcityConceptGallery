@@ -166,8 +166,8 @@ export function FlowArcs({ streams }: FlowArcsProps) {
         <lineBasicMaterial
           vertexColors
           transparent
-          opacity={0.35}
-          blending={THREE.AdditiveBlending}
+          opacity={0.5}
+          blending={THREE.NormalBlending}
           depthWrite={false}
           toneMapped={false}
         />
@@ -184,7 +184,7 @@ export function FlowArcs({ streams }: FlowArcsProps) {
           vertexColors
           transparent
           opacity={0.95}
-          blending={THREE.AdditiveBlending}
+          blending={THREE.NormalBlending}
           depthWrite={false}
           toneMapped={false}
         />

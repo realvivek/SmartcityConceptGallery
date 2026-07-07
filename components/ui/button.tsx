@@ -4,25 +4,30 @@ import { cva, type VariantProps } from "class-variance-authority";
 
 import { cn } from "@/lib/utils";
 
+/**
+ * Drafting-press buttons: hairline ink borders and a hard offset shadow
+ * that the button "pushes into" on hover — no soft glows, no gradients.
+ */
 const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:ring-2 focus-visible:ring-ring/50 cursor-pointer",
+  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-sm text-sm font-medium transition-all duration-150 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:ring-2 focus-visible:ring-ring/50 cursor-pointer active:translate-x-[3px] active:translate-y-[3px] active:shadow-none",
   {
     variants: {
       variant: {
         default:
-          "bg-primary text-primary-foreground shadow-[0_0_20px_rgba(59,130,246,0.25)] hover:bg-primary/90 hover:shadow-[0_0_28px_rgba(59,130,246,0.4)]",
+          "border border-ink bg-primary text-primary-foreground shadow-[3px_3px_0_#24344d] hover:translate-x-[1.5px] hover:translate-y-[1.5px] hover:shadow-[1.5px_1.5px_0_#24344d]",
         secondary:
-          "bg-secondary text-secondary-foreground border border-white/10 hover:bg-secondary/70 hover:border-white/20",
-        ghost: "text-muted-foreground hover:bg-white/5 hover:text-foreground",
+          "border border-ink/70 bg-card text-foreground shadow-[3px_3px_0_rgba(36,52,77,0.35)] hover:translate-x-[1.5px] hover:translate-y-[1.5px] hover:shadow-[1.5px_1.5px_0_rgba(36,52,77,0.35)]",
+        ghost:
+          "text-muted-foreground hover:bg-ink/5 hover:text-foreground active:translate-x-0 active:translate-y-0",
         outline:
-          "border border-white/15 bg-transparent text-foreground hover:bg-white/5 hover:border-white/30",
+          "border border-ink/40 bg-transparent text-foreground hover:border-ink hover:bg-card active:translate-x-0 active:translate-y-0",
         destructive:
-          "bg-destructive/15 text-destructive border border-destructive/30 hover:bg-destructive/25",
+          "border border-destructive/60 bg-destructive/10 text-destructive hover:bg-destructive/20 active:translate-x-0 active:translate-y-0",
       },
       size: {
         default: "h-9 px-4 py-2",
-        sm: "h-8 rounded-md px-3 text-xs",
-        lg: "h-11 rounded-md px-6",
+        sm: "h-8 rounded-sm px-3 text-xs",
+        lg: "h-11 rounded-sm px-6",
         icon: "size-9",
         iconSm: "size-8",
       },

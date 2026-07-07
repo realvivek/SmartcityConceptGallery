@@ -9,13 +9,14 @@ interface GlowEffectsProps {
 }
 
 /**
- * Shared post-processing stack: mipmap bloom tuned for emissive signal
- * geometry on a dark navy background, plus a subtle vignette.
+ * Shared post-processing for the day-lit look: a restrained bloom that
+ * only catches genuinely emissive signal geometry (high threshold so the
+ * bright paper scene stays crisp), plus a whisper of vignette.
  */
 export function GlowEffects({
-  bloomIntensity = 1.1,
-  luminanceThreshold = 0.18,
-  vignetteDarkness = 0.72,
+  bloomIntensity = 0.55,
+  luminanceThreshold = 0.88,
+  vignetteDarkness = 0.16,
 }: GlowEffectsProps) {
   return (
     <EffectComposer>
@@ -23,9 +24,9 @@ export function GlowEffects({
         mipmapBlur
         intensity={bloomIntensity}
         luminanceThreshold={luminanceThreshold}
-        luminanceSmoothing={0.25}
+        luminanceSmoothing={0.18}
       />
-      <Vignette eskil={false} offset={0.18} darkness={vignetteDarkness} />
+      <Vignette eskil={false} offset={0.12} darkness={vignetteDarkness} />
     </EffectComposer>
   );
 }

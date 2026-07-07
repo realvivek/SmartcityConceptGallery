@@ -165,8 +165,8 @@ function NodeSiteMarker({
         <meshBasicMaterial
           color={RF_COLORS.slate}
           transparent
-          opacity={0.14}
-          blending={THREE.AdditiveBlending}
+          opacity={0.28}
+          blending={THREE.NormalBlending}
           depthWrite={false}
           toneMapped={false}
         />
@@ -182,7 +182,7 @@ function NodeSiteMarker({
             color={arcColor}
             transparent
             opacity={0.85}
-            blending={THREE.AdditiveBlending}
+            blending={THREE.NormalBlending}
             depthWrite={false}
             toneMapped={false}
           />
@@ -196,8 +196,8 @@ function NodeSiteMarker({
             ref={inviteMat}
             color={RF_COLORS.purple}
             transparent
-            opacity={0.2}
-            blending={THREE.AdditiveBlending}
+            opacity={0.35}
+            blending={THREE.NormalBlending}
             depthWrite={false}
             toneMapped={false}
           />
@@ -230,10 +230,11 @@ function NodeSiteMarker({
             fontFamily: "ui-monospace, monospace",
             fontSize: 10,
             color: chipColor,
-            background: "rgba(10, 20, 40, 0.82)",
+            background: "rgba(253, 252, 247, 0.94)",
             padding: "3px 8px",
-            borderRadius: 8,
-            border: `1px solid ${chipColor}55`,
+            borderRadius: 2,
+            border: `1px solid ${chipColor}`,
+            boxShadow: "2px 2px 0 rgba(36, 52, 77, 0.18)",
             whiteSpace: "nowrap",
           }}
         >

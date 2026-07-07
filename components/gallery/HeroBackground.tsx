@@ -3,12 +3,16 @@
 import { useMemo, useRef } from "react";
 import * as THREE from "three";
 import { Canvas, useFrame } from "@react-three/fiber";
-import { RF_COLORS } from "@/lib/three-utils";
 
 const GRID = 96;
 const SPACING = 1.35;
+const PAPER = "#f4f1e9";
 
-/** Animated point-field: RF wavefronts rippling across a city-scale grid. */
+/**
+ * Animated ink-dot field: RF wavefronts rippling across a drafting
+ * sheet. Dots read as ink on paper — crests flush coral, troughs
+ * settle into indigo, edges dissolve into the page.
+ */
 function WaveField() {
   const pointsRef = useRef<THREE.Points>(null);
 
@@ -28,9 +32,10 @@ function WaveField() {
     return { positions, colors };
   }, []);
 
-  const blue = useMemo(() => new THREE.Color(RF_COLORS.blue), []);
-  const purple = useMemo(() => new THREE.Color(RF_COLORS.purple), []);
-  const cyan = useMemo(() => new THREE.Color(RF_COLORS.cyan), []);
+  const indigo = useMemo(() => new THREE.Color("#4f46e5"), []);
+  const violet = useMemo(() => new THREE.Color("#7c3aed"), []);
+  const coral = useMemo(() => new THREE.Color("#ff5d4d"), []);
+  const paper = useMemo(() => new THREE.Color(PAPER), []);
   const tmp = useMemo(() => new THREE.Color(), []);
 
   useFrame(({ clock }) => {
@@ -52,11 +57,12 @@ function WaveField() {
       pos.setY(i, y);
 
       const h = THREE.MathUtils.clamp((y + 1.4) / 2.8, 0, 1);
-      tmp.copy(purple).lerp(blue, h);
-      if (h > 0.82) tmp.lerp(cyan, (h - 0.82) / 0.18);
+      tmp.copy(indigo).lerp(violet, h);
+      if (h > 0.78) tmp.lerp(coral, (h - 0.78) / 0.22);
+      // dissolve into the page toward the edges
       const fade =
         1 - THREE.MathUtils.clamp(Math.hypot(x, z) / (GRID * SPACING * 0.52), 0, 1);
-      tmp.multiplyScalar(0.25 + 0.75 * fade);
+      tmp.lerp(paper, 1 - (0.2 + 0.8 * fade));
       col.setXYZ(i, tmp.r, tmp.g, tmp.b);
     }
     pos.needsUpdate = true;
@@ -72,19 +78,18 @@ function WaveField() {
         <bufferAttribute attach="attributes-color" args={[colors, 3]} />
       </bufferGeometry>
       <pointsMaterial
-        size={0.14}
+        size={0.17}
         vertexColors
         transparent
-        opacity={0.9}
+        opacity={0.95}
         sizeAttenuation
         depthWrite={false}
-        blending={THREE.AdditiveBlending}
       />
     </points>
   );
 }
 
-/** Subtle full-bleed hero canvas with vignette fades into the page bg. */
+/** Subtle full-bleed hero canvas whose edges dissolve into the page. */
 export function HeroBackground() {
   return (
     <div className="absolute inset-0" aria-hidden>
@@ -93,8 +98,8 @@ export function HeroBackground() {
         camera={{ position: [0, 26, 52], fov: 42, near: 1, far: 300 }}
         gl={{ antialias: true, powerPreference: "high-performance" }}
       >
-        <color attach="background" args={[RF_COLORS.navy]} />
-        <fog attach="fog" args={[RF_COLORS.navy, 60, 160]} />
+        <color attach="background" args={[PAPER]} />
+        <fog attach="fog" args={[PAPER, 60, 160]} />
         <WaveField />
       </Canvas>
       {/* fade edges into the page background */}

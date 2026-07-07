@@ -282,21 +282,21 @@ export default function DataflowDemo() {
           checked={showHalos}
           onCheckedChange={setShowHalos}
         />
-        <div className="space-y-1.5 rounded-lg border border-white/8 bg-white/[0.03] p-3">
+        <div className="space-y-1.5 rounded-md border border-ink/20 bg-ink/[0.04] p-3">
           <StatRow
             label="Avg latency"
             value={`${avgLatency.toFixed(2)} ms`}
-            accent="text-cyan-300"
+            accent="text-sky-700"
           />
           <StatRow
             label="Worst latency"
             value={`${worstLatency.toFixed(2)} ms`}
-            accent="text-rose-300"
+            accent="text-rose-700"
           />
           <StatRow
             label="Busiest node"
             value={`${busiest.id} · ${busiest.count}`}
-            accent="text-purple-300"
+            accent="text-violet-700"
           />
           <StatRow
             label="Active sensors"

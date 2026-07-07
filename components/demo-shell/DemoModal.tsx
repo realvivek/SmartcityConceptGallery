@@ -25,7 +25,7 @@ interface DemoModalProps {
 
 /**
  * Full-screen demo viewer: canvas area with the interactive scene,
- * a professional explanation sidebar, and shared Reset / Screenshot
+ * a drafting-sheet explanation sidebar, and shared Reset / Screenshot
  * actions. Enter/exit animated with Framer Motion.
  */
 export function DemoModal({ demo, onClose }: DemoModalProps) {
@@ -57,7 +57,7 @@ export function DemoModal({ demo, onClose }: DemoModalProps) {
       {demo && DemoComponent && (
         <motion.div
           key="demo-modal"
-          className="fixed inset-0 z-50 flex flex-col bg-[#060d1c]/85 backdrop-blur-md"
+          className="fixed inset-0 z-50 flex flex-col bg-[#e9e4d8]/70 backdrop-blur-md"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
@@ -67,19 +67,22 @@ export function DemoModal({ demo, onClose }: DemoModalProps) {
           aria-label={demo.title}
         >
           <motion.div
-            className="m-2 flex min-h-0 flex-1 flex-col overflow-hidden rounded-2xl border border-white/10 bg-background shadow-[0_24px_80px_rgba(0,0,0,0.7)] md:m-4"
+            className="m-2 flex min-h-0 flex-1 flex-col overflow-hidden rounded-lg border border-ink/40 bg-background shadow-[8px_8px_0_rgba(36,52,77,0.22)] md:m-4"
             initial={{ opacity: 0, scale: 0.96, y: 24 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.97, y: 16 }}
             transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
           >
             {/* header */}
-            <header className="flex items-center gap-3 border-b border-white/10 px-4 py-3 md:px-6">
-              <span className="font-mono text-xs text-blue-400/80">
+            <header className="flex items-center gap-3 border-b border-ink/15 bg-card px-4 py-3 md:px-6">
+              <span
+                className="font-mono text-xs font-semibold"
+                style={{ color: demo.accentHex }}
+              >
                 {demo.number}
               </span>
               <div className="min-w-0 flex-1">
-                <h2 className="truncate text-sm font-semibold tracking-tight md:text-base">
+                <h2 className="font-display truncate text-sm font-semibold tracking-tight md:text-lg">
                   {demo.title}
                 </h2>
                 <div className="mt-1 hidden gap-1.5 md:flex">
@@ -133,13 +136,13 @@ export function DemoModal({ demo, onClose }: DemoModalProps) {
               </div>
 
               {/* explanation sidebar */}
-              <aside className="max-h-[42vh] shrink-0 overflow-y-auto border-t border-white/10 bg-[#0c1830]/70 lg:max-h-none lg:w-[24rem] lg:border-t-0 lg:border-l">
+              <aside className="max-h-[42vh] shrink-0 overflow-y-auto border-t border-ink/15 bg-card lg:max-h-none lg:w-[24rem] lg:border-t-0 lg:border-l">
                 <div className="space-y-5 p-5 md:p-6">
                   <div>
-                    <p className="mb-1 text-[10px] font-semibold tracking-[0.2em] text-blue-400 uppercase">
+                    <p className="mb-1 font-mono text-[10px] font-semibold tracking-[0.2em] text-primary uppercase">
                       The concept
                     </p>
-                    <h3 className="text-sm leading-snug font-semibold text-slate-100">
+                    <h3 className="font-display text-base leading-snug font-semibold text-ink">
                       {demo.explanation.heading}
                     </h3>
                   </div>
@@ -147,7 +150,7 @@ export function DemoModal({ demo, onClose }: DemoModalProps) {
                     {demo.explanation.paragraphs.map((p, i) => (
                       <p
                         key={i}
-                        className="text-[13px] leading-relaxed text-slate-300/90"
+                        className="text-[13px] leading-relaxed text-foreground/80"
                       >
                         {p}
                       </p>
@@ -157,14 +160,14 @@ export function DemoModal({ demo, onClose }: DemoModalProps) {
                   <Separator />
 
                   <div>
-                    <p className="mb-2.5 flex items-center gap-1.5 text-[10px] font-semibold tracking-[0.2em] text-purple-400 uppercase">
+                    <p className="mb-2.5 flex items-center gap-1.5 font-mono text-[10px] font-semibold tracking-[0.2em] text-[#ff5d4d] uppercase">
                       <Lightbulb className="size-3" /> What to notice
                     </p>
                     <ul className="space-y-2">
                       {demo.explanation.notice.map((n, i) => (
                         <li key={i} className="flex gap-2 text-[13px]">
-                          <CheckCircle2 className="mt-0.5 size-3.5 shrink-0 text-emerald-400/80" />
-                          <span className="leading-relaxed text-slate-300/90">
+                          <CheckCircle2 className="mt-0.5 size-3.5 shrink-0 text-teal-700/80" />
+                          <span className="leading-relaxed text-foreground/80">
                             {n}
                           </span>
                         </li>
@@ -175,10 +178,10 @@ export function DemoModal({ demo, onClose }: DemoModalProps) {
                   <Separator />
 
                   <div>
-                    <p className="mb-2 flex items-center gap-1.5 text-[10px] font-semibold tracking-[0.2em] text-cyan-400 uppercase">
+                    <p className="mb-2 flex items-center gap-1.5 font-mono text-[10px] font-semibold tracking-[0.2em] text-teal-700 uppercase">
                       <Globe2 className="size-3" /> In the real world
                     </p>
-                    <p className="text-[13px] leading-relaxed text-slate-300/90">
+                    <p className="text-[13px] leading-relaxed text-foreground/80">
                       {demo.explanation.realWorld}
                     </p>
                   </div>

@@ -3,7 +3,7 @@
 import { useMemo, useRef } from "react";
 import * as THREE from "three";
 import { useFrame } from "@react-three/fiber";
-import { RF_COLORS, mulberry32 } from "@/lib/three-utils";
+import { mulberry32 } from "@/lib/three-utils";
 import {
   type ClutterGrid,
   FIELD_CEILING,
@@ -27,16 +27,36 @@ const LAYERS = [
 
 type LayerConfig = (typeof LAYERS)[number];
 
-const BASE_OPACITY = 0.3;
-const BASE_SIZE = 0.5;
+/** Lazily-built soft radial sprite so points render as haze, not squares. */
+let softSprite: THREE.Texture | null = null;
+function getSoftSprite(): THREE.Texture {
+  if (softSprite) return softSprite;
+  const size = 64;
+  const canvas = document.createElement("canvas");
+  canvas.width = size;
+  canvas.height = size;
+  const ctx = canvas.getContext("2d")!;
+  const grad = ctx.createRadialGradient(
+    size / 2, size / 2, 0,
+    size / 2, size / 2, size / 2
+  );
+  grad.addColorStop(0, "rgba(255,255,255,1)");
+  grad.addColorStop(0.45, "rgba(255,255,255,0.45)");
+  grad.addColorStop(1, "rgba(255,255,255,0)");
+  ctx.fillStyle = grad;
+  ctx.fillRect(0, 0, size, size);
+  softSprite = new THREE.CanvasTexture(canvas);
+  return softSprite;
+}
 
-/** Colour ramp: dim navy-blue (cold) → purple → amber (hot clutter). */
-const COLD = new THREE.Color(RF_COLORS.blue).lerp(
-  new THREE.Color(RF_COLORS.navyLight),
-  0.5
-);
-const MID = new THREE.Color(RF_COLORS.purple);
-const HOT = new THREE.Color(RF_COLORS.amber);
+const BASE_OPACITY = 0.22;
+const BASE_SIZE = 2.4;
+
+/** Smog ramp for the day-lit scene: pale haze → violet-grey → burnt amber. */
+const COLD = new THREE.Color("#a89f8d");
+const MID = new THREE.Color("#8a6f56");
+const HOT = new THREE.Color("#9a3d0c");
+const DUST = new THREE.Color("#d6cdbd"); // warm airborne dust
 
 interface NoiseFieldProps {
   /** Total particle budget across all layers. */
@@ -107,9 +127,12 @@ function NoiseLayer({
       if (clutter < 0.5) color.copy(COLD).lerp(MID, clutter * 2);
       else color.copy(MID).lerp(HOT, (clutter - 0.5) * 2);
       const heightFade = 1 - 0.35 * (y / FIELD_CEILING);
-      color.multiplyScalar(
-        (0.3 + 1.1 * Math.pow(clutter, 1.6)) * heightFade * (0.75 + 0.5 * rand())
+      // weak haze dissolves into the sky rather than dimming to soot
+      const density = Math.min(
+        (0.3 + 1.1 * Math.pow(clutter, 1.6)) * heightFade * (0.75 + 0.5 * rand()),
+        1
       );
+      color.lerp(DUST, 0.8 * (1 - density));
       colors[i3] = color.r;
       colors[i3 + 1] = color.g;
       colors[i3 + 2] = color.b;
@@ -157,9 +180,10 @@ function NoiseLayer({
           color={tint}
           size={BASE_SIZE}
           sizeAttenuation
+          map={getSoftSprite()}
           transparent
           opacity={BASE_OPACITY}
-          blending={THREE.AdditiveBlending}
+          blending={THREE.NormalBlending}
           depthWrite={false}
           toneMapped={false}
         />

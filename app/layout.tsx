@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Fraunces } from "next/font/google";
 import { Toaster } from "@/components/ui/sonner";
 import "./globals.css";
 
@@ -7,6 +7,13 @@ const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
   display: "swap",
+});
+
+const fraunces = Fraunces({
+  subsets: ["latin"],
+  variable: "--font-fraunces",
+  display: "swap",
+  axes: ["opsz"],
 });
 
 export const metadata: Metadata = {
@@ -30,16 +37,17 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`dark ${inter.variable}`}>
+    <html lang="en" className={`${inter.variable} ${fraunces.variable}`}>
       <body className="min-h-screen font-sans">
         {children}
         <Toaster
           position="bottom-center"
           toastOptions={{
             style: {
-              background: "#0e1b33",
-              border: "1px solid rgba(148, 179, 222, 0.18)",
-              color: "#e2e8f0",
+              background: "#fdfcf7",
+              border: "1px solid rgba(36, 52, 77, 0.25)",
+              color: "#24344d",
+              boxShadow: "4px 4px 0 rgba(36, 52, 77, 0.14)",
             },
           }}
         />

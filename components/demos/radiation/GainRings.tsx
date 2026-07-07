@@ -57,8 +57,8 @@ export function GainRings({ maxRadius, linearScale }: GainRingsProps) {
             <meshBasicMaterial
               color={RF_COLORS.emerald}
               transparent
-              opacity={0.3}
-              blending={THREE.AdditiveBlending}
+              opacity={0.5}
+              blending={THREE.NormalBlending}
               depthWrite={false}
               toneMapped={false}
             />
@@ -73,11 +73,12 @@ export function GainRings({ maxRadius, linearScale }: GainRingsProps) {
               style={{
                 fontFamily: "ui-monospace, monospace",
                 fontSize: 10,
-                color: "#6ee7b7",
-                background: "rgba(10,20,40,0.78)",
+                color: "#0f766e",
+                background: "rgba(253, 252, 247, 0.94)",
                 padding: "2px 6px",
-                borderRadius: 6,
-                border: "1px solid rgba(52,211,153,0.28)",
+                borderRadius: 2,
+                border: "1px solid rgba(15, 157, 143, 0.55)",
+                boxShadow: "2px 2px 0 rgba(36, 52, 77, 0.18)",
                 whiteSpace: "nowrap",
               }}
             >

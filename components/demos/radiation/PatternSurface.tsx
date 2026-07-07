@@ -50,6 +50,7 @@ export function PatternSurface({
     const positions = new Float32Array(azCount * elCount * 3);
     const colors = new Float32Array(azCount * elCount * 3);
     const color = new THREE.Color();
+    const pale = new THREE.Color("#e7edf6"); // scene sky tint
 
     for (let ei = 0; ei < elCount; ei++) {
       const el = -EL_SPAN / 2 + (EL_SPAN * ei) / EL_STEPS; // degrees
@@ -67,8 +68,8 @@ export function PatternSurface({
         positions[idx + 2] = Math.cos(azRad) * Math.cos(elRad) * r;
 
         signalRampColor(norm, color);
-        // brighten the hottest core so bloom blooms
-        color.multiplyScalar(0.35 + 1.5 * Math.pow(norm, 2.4));
+        // weak directions dissolve into the sky; the main lobe stays ink-dense
+        color.lerp(pale, 0.85 * Math.pow(1 - norm, 1.6));
         colors[idx] = color.r;
         colors[idx + 1] = color.g;
         colors[idx + 2] = color.b;
@@ -109,9 +110,9 @@ export function PatternSurface({
         <meshBasicMaterial
           vertexColors
           transparent
-          opacity={0.34}
+          opacity={0.52}
           side={THREE.DoubleSide}
-          blending={THREE.AdditiveBlending}
+          blending={THREE.NormalBlending}
           depthWrite={false}
           toneMapped={false}
         />
@@ -122,8 +123,8 @@ export function PatternSurface({
           vertexColors
           wireframe
           transparent
-          opacity={0.05}
-          blending={THREE.AdditiveBlending}
+          opacity={0.1}
+          blending={THREE.NormalBlending}
           depthWrite={false}
           toneMapped={false}
         />

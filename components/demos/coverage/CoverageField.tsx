@@ -19,14 +19,13 @@ const REVEAL_MAX_RADIUS = 320;
 const REVEAL_EDGE = 24;
 /** Scratch capacity — comfortably above 12 rollout + 6 custom cells. */
 const MAX_CELLS = 32;
-const BASE_OPACITY = 0.5;
+const BASE_OPACITY = 0.62;
 
 /**
- * 256-entry RGBA LUT over the normalized coverage value: qualityColor
- * ramp (rose → amber → emerald → cyan) with brightness boosted toward
- * the strong end so bloom lifts hot streets, and alpha fading to zero
- * so uncovered streets and building shadows stay dark under additive
- * blending.
+ * 256-entry RGBA LUT over the normalized coverage value: the saturated
+ * qualityColor ramp (rose → amber → teal → blue) printed like ink on the
+ * paper ground, with alpha fading to zero so uncovered streets and
+ * building shadows show the drafting grid through.
  */
 const LUT = (() => {
   const lut = new Uint8Array(256 * 4);
@@ -34,11 +33,10 @@ const LUT = (() => {
   for (let i = 0; i < 256; i++) {
     const v = i / 255;
     qualityColor(v, c);
-    const boost = 0.55 + 0.8 * v;
-    lut[i * 4] = Math.min(255, Math.round(c.r * boost * 255));
-    lut[i * 4 + 1] = Math.min(255, Math.round(c.g * boost * 255));
-    lut[i * 4 + 2] = Math.min(255, Math.round(c.b * boost * 255));
-    lut[i * 4 + 3] = Math.round(255 * Math.pow(v, 0.55));
+    lut[i * 4] = Math.round(c.r * 255);
+    lut[i * 4 + 1] = Math.round(c.g * 255);
+    lut[i * 4 + 2] = Math.round(c.b * 255);
+    lut[i * 4 + 3] = Math.round(255 * Math.pow(v, 0.6));
   }
   return lut;
 })();
@@ -165,7 +163,7 @@ export function CoverageField({
         map={texture}
         transparent
         opacity={BASE_OPACITY}
-        blending={THREE.AdditiveBlending}
+        blending={THREE.NormalBlending}
         depthWrite={false}
         toneMapped={false}
       />

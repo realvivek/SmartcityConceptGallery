@@ -94,7 +94,7 @@ lib/
 
 - Cities render as a single `InstancedMesh` draw call; particle systems share one `THREE.Points` per demo.
 - Heat fields/dominance maps are `DataTexture`s recomputed only when inputs change, never per frame.
-- Post-processing is a shared mipmap-bloom + vignette stack tuned for emissive signal geometry on the dark navy palette.
+- Post-processing is a shared mipmap-bloom + vignette stack with a high luminance threshold, tuned so only genuinely emissive signal elements glow against the day-lit "solar blueprint" palette.
 - Demos are code-split and load only when opened.
 
 ## License

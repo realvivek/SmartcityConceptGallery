@@ -103,7 +103,7 @@ function CellMarker({
           color={RF_COLORS.cyan}
           transparent
           opacity={cell.custom ? 0.62 : 0.42}
-          blending={THREE.AdditiveBlending}
+          blending={THREE.NormalBlending}
           depthWrite={false}
           toneMapped={false}
         />
@@ -121,7 +121,7 @@ function CellMarker({
           color={RF_COLORS.cyan}
           transparent
           opacity={0}
-          blending={THREE.AdditiveBlending}
+          blending={THREE.NormalBlending}
           depthWrite={false}
           toneMapped={false}
         />

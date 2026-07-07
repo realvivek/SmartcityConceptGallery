@@ -134,7 +134,7 @@ export function WorkloadOrbs({ orbs, selectedId, onOrbClick }: WorkloadOrbsProps
                   transparent
                   opacity={0.9}
                   side={THREE.DoubleSide}
-                  blending={THREE.AdditiveBlending}
+                  blending={THREE.NormalBlending}
                   depthWrite={false}
                   toneMapped={false}
                 />
@@ -152,10 +152,13 @@ export function WorkloadOrbs({ orbs, selectedId, onOrbClick }: WorkloadOrbsProps
                   fontFamily: "ui-monospace, monospace",
                   fontSize: 10,
                   color: def.color,
-                  background: "rgba(10, 20, 40, 0.85)",
+                  background: "rgba(253, 252, 247, 0.94)",
                   padding: "3px 8px",
-                  borderRadius: 8,
-                  border: `1px solid ${def.color}${selected ? "aa" : "55"}`,
+                  borderRadius: 2,
+                  border: `1px solid ${def.color}`,
+                  boxShadow: selected
+                    ? "3px 3px 0 rgba(36, 52, 77, 0.35)"
+                    : "2px 2px 0 rgba(36, 52, 77, 0.18)",
                   whiteSpace: "nowrap",
                 }}
               >
@@ -229,7 +232,7 @@ export function SourceMarkers({ workloads }: { workloads: WorkloadDef[] }) {
               color={w.color}
               transparent
               opacity={0.4}
-              blending={THREE.AdditiveBlending}
+              blending={THREE.NormalBlending}
               depthWrite={false}
               toneMapped={false}
             />
@@ -256,7 +259,7 @@ export function SourceMarkers({ workloads }: { workloads: WorkloadDef[] }) {
                 color={w.color}
                 transparent
                 opacity={0.3}
-                blending={THREE.AdditiveBlending}
+                blending={THREE.NormalBlending}
                 depthWrite={false}
                 toneMapped={false}
               />
@@ -269,7 +272,7 @@ export function SourceMarkers({ workloads }: { workloads: WorkloadDef[] }) {
           color={RF_COLORS.emerald}
           transparent
           opacity={0.22}
-          blending={THREE.AdditiveBlending}
+          blending={THREE.NormalBlending}
           depthWrite={false}
           toneMapped={false}
         />
