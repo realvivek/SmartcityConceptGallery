@@ -6,6 +6,7 @@ import {
   Camera,
   CheckCircle2,
   Globe2,
+  GraduationCap,
   Lightbulb,
   RotateCcw,
   X,
@@ -17,6 +18,7 @@ import { takeScreenshot } from "@/lib/screenshot";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
+import { DemoErrorBoundary } from "@/components/demo-shell/DemoErrorBoundary";
 
 interface DemoModalProps {
   demo: DemoMeta | null;
@@ -132,12 +134,28 @@ export function DemoModal({ demo, onClose }: DemoModalProps) {
                 ref={canvasAreaRef}
                 className="relative min-h-[46vh] flex-1 overflow-hidden lg:min-h-0"
               >
-                <DemoComponent key={resetKey} />
+                <DemoErrorBoundary
+                  key={demo.id}
+                  onRetry={() => setResetKey((k) => k + 1)}
+                >
+                  <DemoComponent key={resetKey} />
+                </DemoErrorBoundary>
+                {/* first-time control hint */}
+                <div className="pointer-events-none absolute bottom-3 left-1/2 -translate-x-1/2 rounded-full border border-ink/10 bg-white/85 px-3.5 py-1.5 text-[11px] font-medium whitespace-nowrap text-muted-foreground shadow-sm backdrop-blur">
+                  Drag to rotate · Scroll to zoom
+                </div>
               </div>
 
               {/* explanation sidebar */}
               <aside className="max-h-[42vh] shrink-0 overflow-y-auto border-t border-ink/8 bg-card lg:max-h-none lg:w-[24rem] lg:border-t-0 lg:border-l">
                 <div className="space-y-5 p-5 md:p-6">
+                  <div className="flex items-start gap-2.5 rounded-xl bg-blue-50 px-3.5 py-3 text-[13px] leading-snug text-blue-900">
+                    <GraduationCap className="mt-0.5 size-4 shrink-0 text-primary" />
+                    <span>
+                      <span className="font-semibold">You&apos;ll learn: </span>
+                      {demo.teaches}
+                    </span>
+                  </div>
                   <div>
                     <p className="mb-1 text-[11px] font-semibold tracking-[0.14em] text-primary uppercase">
                       The concept

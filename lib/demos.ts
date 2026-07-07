@@ -26,6 +26,8 @@ export interface DemoMeta {
   title: string;
   /** One-sentence card description. */
   tagline: string;
+  /** Plain-language one-liner: what this demo teaches. */
+  teaches: string;
   tags: string[];
   accent: AccentVariant;
   /** Hex accent used in thumbnails / highlights. */
@@ -44,7 +46,8 @@ export const DEMOS: DemoMeta[] = [
     number: "01",
     title: "Urban Beamforming Lobes",
     tagline:
-      "Steer a small-cell antenna array through a downtown block and watch main and side lobes reshape in real time.",
+      "Steer a 5G antenna's beam through downtown like a flashlight and see which phones get signal.",
+    teaches: "How antenna arrays focus and steer wireless signal",
     tags: ["Beamforming", "Antenna Arrays", "Path Loss"],
     accent: "default",
     accentHex: "#4f46e5",
@@ -68,7 +71,8 @@ export const DEMOS: DemoMeta[] = [
     number: "02",
     title: "Sensor-to-Edge Data Flow",
     tagline:
-      "Watch city sensors stream telemetry to edge compute nodes co-located with small cells, with latency painted onto every packet.",
+      "Watch city sensors stream data to nearby mini data centers — and what happens when things get busy.",
+    teaches: "Why compute next to sensors means faster responses",
     tags: ["Edge AI", "IoT Sensors", "Latency"],
     accent: "purple",
     accentHex: "#7c3aed",
@@ -92,7 +96,8 @@ export const DEMOS: DemoMeta[] = [
     number: "03",
     title: "Volumetric Coverage Growth",
     tagline:
-      "Densify a sparse small-cell deployment step by step and watch street-level coverage bloom through the urban fabric.",
+      "Drop in cell sites one by one and watch signal flood the streets.",
+    teaches: "Why 5G cities need many small towers, not one big one",
     tags: ["Densification", "Coverage", "Small Cells"],
     accent: "cyan",
     accentHex: "#0284c7",
@@ -116,7 +121,8 @@ export const DEMOS: DemoMeta[] = [
     number: "04",
     title: "Interference Noise Field",
     tagline:
-      "Visualize urban clutter as a living noise field and hunt for small-cell placements that rise above it.",
+      "Dense blocks make radio noise. Find the tower spots that rise above it.",
+    teaches: "How buildings create interference — and how placement beats it",
     tags: ["Interference", "Urban Clutter", "SINR"],
     accent: "amber",
     accentHex: "#f59e0b",
@@ -140,7 +146,8 @@ export const DEMOS: DemoMeta[] = [
     number: "05",
     title: "Antenna Pattern on a Pole",
     tagline:
-      "Inspect a streetlight-mounted small cell's 3D radiation pattern and aim it down an urban canyon.",
+      "Spin and tilt a streetlight antenna and watch its signal wash down the street.",
+    teaches: "How engineers read and aim antenna radiation patterns",
     tags: ["Radiation Patterns", "Antennas", "Urban Canyon"],
     accent: "emerald",
     accentHex: "#0f9d8f",
@@ -164,7 +171,8 @@ export const DEMOS: DemoMeta[] = [
     number: "06",
     title: "Edge Workload Placement",
     tagline:
-      "Drop AI workloads onto a mesh of edge nodes and get scored on latency, capacity and locality in real time.",
+      "Drag AI jobs onto edge computers and chase a perfect placement score.",
+    teaches: "How cities decide where AI workloads should run",
     tags: ["Edge AI", "Orchestration", "Optimization"],
     accent: "purple",
     accentHex: "#7c3aed",

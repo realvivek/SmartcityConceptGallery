@@ -99,4 +99,4 @@ lib/
 
 ## License
 
-MIT — see [LICENSE](./LICENSE). Built with Claude Fable 5.
+MIT — see [LICENSE](./LICENSE).

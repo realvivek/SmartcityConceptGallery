@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, GraduationCap } from "lucide-react";
 
 import type { DemoMeta } from "@/lib/demos";
 import { DemoThumbnail } from "@/components/gallery/Thumbnails";
@@ -55,6 +55,10 @@ export function DemoCard({ demo, index, onOpen }: DemoCardProps) {
           </div>
           <p className="text-[13px] leading-relaxed text-muted-foreground">
             {demo.tagline}
+          </p>
+          <p className="flex items-start gap-1.5 text-[12px] leading-snug font-medium text-primary">
+            <GraduationCap className="mt-0.5 size-3.5 shrink-0" />
+            <span>You&apos;ll learn: {demo.teaches}</span>
           </p>
           <div className="flex flex-wrap gap-1.5 pt-0.5">
             {demo.tags.map((tag) => (
