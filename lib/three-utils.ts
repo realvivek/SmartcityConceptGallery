@@ -111,6 +111,87 @@ export interface CityOptions {
   clearRadius?: number;
 }
 
+/** A park occupying one full city block. */
+export interface ParkBlock {
+  x: number;
+  z: number;
+  size: number;
+}
+
+/** Full district description: buildings plus streets and parks. */
+export interface CityScapeData {
+  buildings: Building[];
+  parks: ParkBlock[];
+  /** Centre-lines of roads running along the X axis (constant z). */
+  roadsAlongX: number[];
+  /** Centre-lines of roads running along the Z axis (constant x). */
+  roadsAlongZ: number[];
+  roadWidth: number;
+  /** Half-extent of the paved district footprint. */
+  extent: number;
+  seed: number;
+}
+
+/**
+ * Generate a deterministic full district: buildings, the street grid
+ * between blocks, and a couple of park blocks. Superset of
+ * `generateCity` — anything that consumes `Building[]` keeps working.
+ */
+export function generateCityScape(
+  options: CityOptions & { parkCount?: number } = {}
+): CityScapeData {
+  const {
+    seed = 42,
+    blocks = 6,
+    blockSize = 26,
+    street = 12,
+    parkCount = Math.max(1, Math.round(blocks / 3)),
+    clearRadius = 14,
+  } = options;
+
+  const rand = mulberry32(seed ^ 0x9e3779b9);
+  const pitch = blockSize + street;
+  const half = ((blocks - 1) * pitch) / 2;
+
+  // Pick park blocks away from the centre plaza (antennas live there).
+  const parks: ParkBlock[] = [];
+  const taken = new Set<string>();
+  let guard = 0;
+  while (parks.length < parkCount && guard++ < 60) {
+    const bx = Math.floor(rand() * blocks);
+    const bz = Math.floor(rand() * blocks);
+    const key = `${bx},${bz}`;
+    const cx = bx * pitch - half;
+    const cz = bz * pitch - half;
+    if (taken.has(key)) continue;
+    if (Math.hypot(cx, cz) < clearRadius + blockSize) continue;
+    taken.add(key);
+    parks.push({ x: cx, z: cz, size: blockSize });
+  }
+
+  const buildings = generateCity(options).filter(
+    (b) =>
+      !parks.some(
+        (p) =>
+          Math.abs(b.x - p.x) < p.size / 2 + 1 &&
+          Math.abs(b.z - p.z) < p.size / 2 + 1
+      )
+  );
+
+  const roads: number[] = [];
+  for (let i = 0; i < blocks - 1; i++) roads.push((i + 0.5) * pitch - half);
+
+  return {
+    buildings,
+    parks,
+    roadsAlongX: [...roads],
+    roadsAlongZ: [...roads],
+    roadWidth: Math.min(street * 0.7, 9),
+    extent: half + blockSize / 2 + street,
+    seed,
+  };
+}
+
 /**
  * Generate a deterministic downtown-style grid of extruded buildings.
  * Heights follow a downtown falloff: taller near the centre.

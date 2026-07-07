@@ -57,7 +57,7 @@ export function DemoModal({ demo, onClose }: DemoModalProps) {
       {demo && DemoComponent && (
         <motion.div
           key="demo-modal"
-          className="fixed inset-0 z-50 flex flex-col bg-[#e9e4d8]/70 backdrop-blur-md"
+          className="fixed inset-0 z-50 flex flex-col bg-ink/20 backdrop-blur-md"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
@@ -67,14 +67,14 @@ export function DemoModal({ demo, onClose }: DemoModalProps) {
           aria-label={demo.title}
         >
           <motion.div
-            className="m-2 flex min-h-0 flex-1 flex-col overflow-hidden rounded-lg border border-ink/40 bg-background shadow-[8px_8px_0_rgba(36,52,77,0.22)] md:m-4"
+            className="m-2 flex min-h-0 flex-1 flex-col overflow-hidden rounded-2xl border border-ink/10 bg-background shadow-[0_24px_64px_rgba(16,24,40,0.25)] md:m-4"
             initial={{ opacity: 0, scale: 0.96, y: 24 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.97, y: 16 }}
             transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
           >
             {/* header */}
-            <header className="flex items-center gap-3 border-b border-ink/15 bg-card px-4 py-3 md:px-6">
+            <header className="flex items-center gap-3 border-b border-ink/8 bg-card px-4 py-3 md:px-6">
               <span
                 className="font-mono text-xs font-semibold"
                 style={{ color: demo.accentHex }}
@@ -136,10 +136,10 @@ export function DemoModal({ demo, onClose }: DemoModalProps) {
               </div>
 
               {/* explanation sidebar */}
-              <aside className="max-h-[42vh] shrink-0 overflow-y-auto border-t border-ink/15 bg-card lg:max-h-none lg:w-[24rem] lg:border-t-0 lg:border-l">
+              <aside className="max-h-[42vh] shrink-0 overflow-y-auto border-t border-ink/8 bg-card lg:max-h-none lg:w-[24rem] lg:border-t-0 lg:border-l">
                 <div className="space-y-5 p-5 md:p-6">
                   <div>
-                    <p className="mb-1 font-mono text-[10px] font-semibold tracking-[0.2em] text-primary uppercase">
+                    <p className="mb-1 text-[11px] font-semibold tracking-[0.14em] text-primary uppercase">
                       The concept
                     </p>
                     <h3 className="font-display text-base leading-snug font-semibold text-ink">
@@ -160,7 +160,7 @@ export function DemoModal({ demo, onClose }: DemoModalProps) {
                   <Separator />
 
                   <div>
-                    <p className="mb-2.5 flex items-center gap-1.5 font-mono text-[10px] font-semibold tracking-[0.2em] text-[#ff5d4d] uppercase">
+                    <p className="mb-2.5 flex items-center gap-1.5 text-[11px] font-semibold tracking-[0.14em] text-sky-600 uppercase">
                       <Lightbulb className="size-3" /> What to notice
                     </p>
                     <ul className="space-y-2">
@@ -178,7 +178,7 @@ export function DemoModal({ demo, onClose }: DemoModalProps) {
                   <Separator />
 
                   <div>
-                    <p className="mb-2 flex items-center gap-1.5 font-mono text-[10px] font-semibold tracking-[0.2em] text-teal-700 uppercase">
+                    <p className="mb-2 flex items-center gap-1.5 text-[11px] font-semibold tracking-[0.14em] text-teal-600 uppercase">
                       <Globe2 className="size-3" /> In the real world
                     </p>
                     <p className="text-[13px] leading-relaxed text-foreground/80">

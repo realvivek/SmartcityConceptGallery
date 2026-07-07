@@ -6,7 +6,7 @@ import * as THREE from "three";
 import {
   type Building,
   clamp,
-  generateCity,
+  generateCityScape,
   latencyMs,
   mulberry32,
 } from "@/lib/three-utils";
@@ -18,8 +18,8 @@ import {
   StatRow,
   ToggleRow,
 } from "@/components/demo-shell/ControlPanel";
-import { CityBuildings } from "@/components/three/CityBuildings";
-import { CityLighting, GroundPlane } from "@/components/three/SceneEnvironment";
+import { CityLighting } from "@/components/three/SceneEnvironment";
+import { CityScape } from "@/components/three/CityScape";
 import { GlowEffects } from "@/components/three/GlowEffects";
 import { FlowStreams, type Stream } from "./FlowStreams";
 import { EdgeNodes, type EdgeNodeStat } from "./EdgeNodes";
@@ -83,8 +83,8 @@ export default function DataflowDemo() {
   const [extras, setExtras] = useState<Sensor[]>([]);
   const nextExtraId = useRef(1);
 
-  const buildings = useMemo(() => {
-    const raw = generateCity({
+  const scape = useMemo(() => {
+    const raw = generateCityScape({
       seed: 23,
       blocks: 5,
       blockSize: 26,
@@ -95,14 +95,18 @@ export default function DataflowDemo() {
       clearRadius: 12,
     });
     // carve out room for the three edge-node sites
-    return raw.filter((b) =>
-      EDGE_NODES.every(
-        (n) =>
-          Math.abs(n.x - b.x) > b.width / 2 + 4 ||
-          Math.abs(n.z - b.z) > b.depth / 2 + 4
-      )
-    );
+    return {
+      ...raw,
+      buildings: raw.buildings.filter((b) =>
+        EDGE_NODES.every(
+          (n) =>
+            Math.abs(n.x - b.x) > b.width / 2 + 4 ||
+            Math.abs(n.z - b.z) > b.depth / 2 + 4
+        )
+      ),
+    };
   }, []);
+  const buildings = scape.buildings;
 
   /**
    * Deterministic pool of MAX_SENSORS street-level positions: rejection-
@@ -229,8 +233,7 @@ export default function DataflowDemo() {
         maxDistance={240}
       >
         <CityLighting />
-        <GroundPlane />
-        <CityBuildings buildings={buildings} />
+        <CityScape data={scape} />
         <EdgeNodes
           nodes={nodeStats}
           showHalos={showHalos}

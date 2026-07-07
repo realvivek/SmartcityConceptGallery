@@ -5,11 +5,6 @@ import * as SliderPrimitive from "@radix-ui/react-slider";
 
 import { cn } from "@/lib/utils";
 
-/**
- * Drafting-gauge slider: a hairline rail with tick marks, an indigo→coral
- * fill, and a rotated-square (diamond) thumb — deliberately not the stock
- * rounded-pill look.
- */
 function Slider({
   className,
   defaultValue,
@@ -36,29 +31,25 @@ function Slider({
       min={min}
       max={max}
       className={cn(
-        "relative flex w-full touch-none items-center select-none py-1 data-[disabled]:opacity-50",
+        "relative flex w-full touch-none items-center py-1 select-none data-[disabled]:opacity-50",
         className
       )}
       {...props}
     >
       <SliderPrimitive.Track
         data-slot="slider-track"
-        className="relative h-[3px] w-full grow bg-ink/20"
-        style={{
-          backgroundImage:
-            "repeating-linear-gradient(90deg, rgba(36,52,77,0.4) 0, rgba(36,52,77,0.4) 1px, transparent 1px, transparent 12.5%)",
-        }}
+        className="relative h-1.5 w-full grow overflow-hidden rounded-full bg-ink/10"
       >
         <SliderPrimitive.Range
           data-slot="slider-range"
-          className="absolute h-full bg-gradient-to-r from-indigo-600 to-[#ff5d4d]"
+          className="absolute h-full bg-primary"
         />
       </SliderPrimitive.Track>
       {Array.from({ length: _values.length }, (_, index) => (
         <SliderPrimitive.Thumb
           data-slot="slider-thumb"
           key={index}
-          className="block size-3.5 shrink-0 rotate-45 border-[1.5px] border-ink bg-card shadow-[2px_2px_0_rgba(36,52,77,0.35)] transition-transform hover:scale-110 focus-visible:ring-2 focus-visible:ring-ring/50 focus-visible:outline-none disabled:pointer-events-none"
+          className="block size-4 shrink-0 rounded-full border border-ink/15 bg-card shadow-[0_1px_3px_rgba(16,24,40,0.2)] transition-transform hover:scale-110 focus-visible:ring-2 focus-visible:ring-ring/40 focus-visible:outline-none disabled:pointer-events-none"
         />
       ))}
     </SliderPrimitive.Root>

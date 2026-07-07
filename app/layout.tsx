@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Fraunces } from "next/font/google";
+import { Inter, Space_Grotesk } from "next/font/google";
 import { Toaster } from "@/components/ui/sonner";
 import "./globals.css";
 
@@ -9,11 +9,11 @@ const inter = Inter({
   display: "swap",
 });
 
-const fraunces = Fraunces({
+const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
-  variable: "--font-fraunces",
+  variable: "--font-space-grotesk",
+  weight: ["500", "600", "700"],
   display: "swap",
-  axes: ["opsz"],
 });
 
 export const metadata: Metadata = {
@@ -37,17 +37,17 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} ${fraunces.variable}`}>
+    <html lang="en" className={`${inter.variable} ${spaceGrotesk.variable}`}>
       <body className="min-h-screen font-sans">
         {children}
         <Toaster
           position="bottom-center"
           toastOptions={{
             style: {
-              background: "#fdfcf7",
-              border: "1px solid rgba(36, 52, 77, 0.25)",
-              color: "#24344d",
-              boxShadow: "4px 4px 0 rgba(36, 52, 77, 0.14)",
+              background: "#ffffff",
+              border: "1px solid rgba(28, 38, 52, 0.12)",
+              color: "#1c2634",
+              boxShadow: "0 12px 32px rgba(16, 24, 40, 0.12)",
             },
           }}
         />

@@ -14,9 +14,9 @@ interface DemoCardProps {
 }
 
 /**
- * Drafting-sheet gallery card: paper, hairline ink border, corner
- * ticks, and a hard offset shadow that deepens and tints toward the
- * demo's accent on hover — no soft glows.
+ * Clean gallery card: white surface, hairline border, soft shadow that
+ * deepens on hover with a gentle lift. No ornament — the schematic
+ * thumbnail carries the personality.
  */
 export function DemoCard({ demo, index, onOpen }: DemoCardProps) {
   return (
@@ -30,46 +30,26 @@ export function DemoCard({ demo, index, onOpen }: DemoCardProps) {
       <button
         type="button"
         onClick={() => onOpen(demo)}
-        className="corner-ticks relative block h-full w-full cursor-pointer overflow-hidden rounded-md border border-ink/30 bg-card text-left shadow-[5px_5px_0_rgba(36,52,77,0.12)] transition-all duration-300 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:border-ink/60 focus-visible:ring-2 focus-visible:ring-ring/60 focus-visible:outline-none"
-        style={
-          {
-            "--card-accent": demo.accentHex,
-          } as React.CSSProperties
-        }
-        onMouseEnter={(e) => {
-          e.currentTarget.style.boxShadow = `7px 7px 0 ${demo.accentHex}55`;
-        }}
-        onMouseLeave={(e) => {
-          e.currentTarget.style.boxShadow = "5px 5px 0 rgba(36,52,77,0.12)";
-        }}
+        className="relative block h-full w-full cursor-pointer overflow-hidden rounded-2xl border border-ink/8 bg-card text-left shadow-[0_1px_2px_rgba(16,24,40,0.05),0_4px_12px_rgba(16,24,40,0.05)] transition-all duration-300 hover:-translate-y-1 hover:border-ink/15 hover:shadow-[0_2px_4px_rgba(16,24,40,0.06),0_16px_40px_rgba(16,24,40,0.12)] focus-visible:ring-2 focus-visible:ring-ring/50 focus-visible:outline-none"
         aria-label={`Open demo: ${demo.title}`}
       >
-        {/* thumbnail on blueprint grid */}
-        <div className="blueprint-grid relative h-44 overflow-hidden border-b border-ink/15 bg-gradient-to-b from-[#eef1f7] to-[#e7ebf3]">
-          <div className="absolute inset-0 p-3 transition-transform duration-500 ease-out group-hover:scale-[1.05]">
+        {/* thumbnail */}
+        <div className="relative h-44 overflow-hidden border-b border-ink/6 bg-gradient-to-b from-[#eef3f9] to-[#e4ebf4]">
+          <div className="absolute inset-0 p-3 transition-transform duration-500 ease-out group-hover:scale-[1.04]">
             <DemoThumbnail id={demo.id} />
           </div>
-          <span className="absolute top-3 left-3 font-mono text-[11px] font-semibold tracking-widest text-ink/45">
+          <span className="absolute top-3 left-3 font-mono text-[11px] font-medium text-ink/35">
             {demo.number}
-          </span>
-          {/* index stamp */}
-          <span
-            className="absolute right-3 bottom-3 hidden rotate-[-4deg] border px-1.5 py-0.5 font-mono text-[9px] tracking-[0.15em] uppercase opacity-70 md:block"
-            style={{ color: demo.accentHex, borderColor: `${demo.accentHex}88` }}
-          >
-            Fig. {demo.number}
           </span>
         </div>
 
         {/* body */}
         <div className="space-y-3 p-5">
           <div className="flex items-start justify-between gap-3">
-            <h3 className="font-display text-[17px] leading-snug font-semibold tracking-tight text-ink">
+            <h3 className="font-display text-[16px] leading-snug font-semibold tracking-tight text-ink">
               {demo.title}
             </h3>
-            <span
-              className="mt-0.5 shrink-0 border border-ink/25 p-1.5 text-muted-foreground transition-all duration-300 group-hover:border-ink group-hover:bg-ink group-hover:text-card"
-            >
+            <span className="mt-0.5 flex size-7 shrink-0 items-center justify-center rounded-full bg-ink/4 text-muted-foreground transition-all duration-300 group-hover:bg-primary group-hover:text-white">
               <ArrowUpRight className="size-3.5 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
             </span>
           </div>
@@ -82,7 +62,6 @@ export function DemoCard({ demo, index, onOpen }: DemoCardProps) {
                 {tag}
               </Badge>
             ))}
-            <Badge variant="outline">Three.js</Badge>
           </div>
         </div>
       </button>

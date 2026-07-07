@@ -42,7 +42,7 @@ export function GalleryApp() {
   return (
     <div className="relative">
       {/* nav */}
-      <nav className="fixed inset-x-0 top-0 z-40 border-b border-ink/12 bg-background/80 backdrop-blur-md">
+      <nav className="fixed inset-x-0 top-0 z-40 border-b border-ink/8 bg-background/80 backdrop-blur-md">
         <div className="mx-auto flex h-14 max-w-6xl items-center justify-between px-6">
           <a href="#top" className="flex items-center gap-2.5">
             <RadioTower className="size-4.5 text-primary" />
@@ -85,15 +85,13 @@ export function GalleryApp() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
           >
-            <p className="mb-6 inline-flex items-center gap-2 border border-ink/25 bg-card/80 px-4 py-1.5 font-mono text-[11px] tracking-[0.14em] text-foreground uppercase backdrop-blur [clip-path:polygon(0_0,calc(100%-10px)_0,100%_10px,100%_100%,0_100%)]">
+            <p className="mb-6 inline-flex items-center gap-2 rounded-full border border-ink/10 bg-card/80 px-4 py-1.5 text-xs font-medium text-muted-foreground shadow-sm backdrop-blur">
               <Waves className="size-3.5 text-primary" />
               Interactive Three.js visualization gallery
             </p>
-            <h1 className="font-display text-5xl leading-[1.02] font-semibold tracking-tight text-balance text-ink sm:text-6xl md:text-7xl">
+            <h1 className="font-display text-5xl leading-[1.04] font-semibold tracking-tight text-balance text-ink sm:text-6xl md:text-7xl">
               RF Concepts in{" "}
-              <span className="bg-gradient-to-r from-indigo-600 via-violet-600 to-[#ff5d4d] bg-clip-text text-transparent italic">
-                Smart Cities
-              </span>
+              <span className="text-primary">Smart Cities</span>
             </h1>
             <p className="mx-auto mt-6 max-w-2xl text-base leading-relaxed text-pretty text-muted-foreground md:text-lg">
               A collection of interactive visualizations exploring private 5G,
@@ -108,7 +106,7 @@ export function GalleryApp() {
                   Explore the demos
                 </a>
               </Button>
-              <Button asChild variant="secondary" size="lg">
+              <Button asChild variant="outline" size="lg">
                 <a href={REPO_URL} target="_blank" rel="noopener noreferrer">
                   <Github className="size-4" />
                   View source
@@ -138,7 +136,7 @@ export function GalleryApp() {
           className="grid gap-10 md:grid-cols-[1.2fr_1fr] md:gap-16"
         >
           <div>
-            <p className="mb-3 font-mono text-[10px] font-semibold tracking-[0.25em] text-primary uppercase">
+            <p className="mb-3 text-[11px] font-semibold tracking-[0.16em] text-primary uppercase">
               About this gallery
             </p>
             <h2 className="font-display text-3xl font-semibold tracking-tight text-balance text-ink md:text-4xl">
@@ -178,9 +176,9 @@ export function GalleryApp() {
             ].map(({ icon: Icon, title, text }) => (
               <div
                 key={title}
-                className="paper-panel corner-ticks relative flex gap-4 rounded-md p-4"
+                className="flex gap-4 rounded-2xl border border-ink/8 bg-card p-4 shadow-[0_1px_2px_rgba(16,24,40,0.05),0_4px_12px_rgba(16,24,40,0.05)]"
               >
-                <span className="mt-0.5 flex size-9 shrink-0 items-center justify-center border border-primary/40 bg-primary/8">
+                <span className="mt-0.5 flex size-9 shrink-0 items-center justify-center rounded-lg bg-blue-50 text-primary">
                   <Icon className="size-4 text-primary" />
                 </span>
                 <div>
@@ -206,7 +204,7 @@ export function GalleryApp() {
           transition={{ duration: 0.6 }}
           className="mb-10"
         >
-          <p className="mb-3 font-mono text-[10px] font-semibold tracking-[0.25em] text-[#ff5d4d] uppercase">
+          <p className="mb-3 text-[11px] font-semibold tracking-[0.16em] text-primary uppercase">
             The demos
           </p>
           <h2 className="font-display text-3xl font-semibold tracking-tight text-ink md:text-4xl">

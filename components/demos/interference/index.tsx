@@ -6,7 +6,7 @@ import { Html } from "@react-three/drei";
 
 import {
   RF_COLORS,
-  generateCity,
+  generateCityScape,
   qualityColor,
   radToDeg,
 } from "@/lib/three-utils";
@@ -18,8 +18,8 @@ import {
   StatRow,
   ToggleRow,
 } from "@/components/demo-shell/ControlPanel";
-import { CityBuildings } from "@/components/three/CityBuildings";
-import { CityLighting, GroundPlane } from "@/components/three/SceneEnvironment";
+import { CityLighting } from "@/components/three/SceneEnvironment";
+import { CityScape } from "@/components/three/CityScape";
 import { GlowEffects } from "@/components/three/GlowEffects";
 import { PoleWithAntenna } from "@/components/three/PoleWithAntenna";
 
@@ -56,9 +56,9 @@ export default function InterferenceDemo() {
   const [cells, setCells] = useState<Cell[]>(DEFAULT_CELLS);
 
   // Clutter is the star: extra-dense, extra-tall downtown grid.
-  const buildings = useMemo(
+  const scape = useMemo(
     () =>
-      generateCity({
+      generateCityScape({
         seed: 23,
         blocks: 6,
         blockSize: 26,
@@ -67,9 +67,11 @@ export default function InterferenceDemo() {
         maxHeight: 64,
         density: 0.92,
         clearRadius: 20,
+        parkCount: 1,
       }),
     []
   );
+  const buildings = scape.buildings;
 
   const clutterGrid = useMemo(() => buildClutterGrid(buildings), [buildings]);
 
@@ -129,8 +131,7 @@ export default function InterferenceDemo() {
         fog={{ near: 150, far: 520 }}
       >
         <CityLighting />
-        <GroundPlane />
-        <CityBuildings buildings={buildings} />
+        <CityScape data={scape} />
         <NoiseField
           count={particleCount}
           clutterGrid={clutterGrid}

@@ -6,12 +6,12 @@ import { Canvas, useFrame } from "@react-three/fiber";
 
 const GRID = 96;
 const SPACING = 1.35;
-const PAPER = "#f4f1e9";
+const PAPER = "#f7f8fa";
 
 /**
  * Animated ink-dot field: RF wavefronts rippling across a drafting
- * sheet. Dots read as ink on paper — crests flush coral, troughs
- * settle into indigo, edges dissolve into the page.
+ * sheet. Dots read as ink on paper — crests flush sky-cyan, troughs
+ * settle into blue, edges dissolve into the page.
  */
 function WaveField() {
   const pointsRef = useRef<THREE.Points>(null);
@@ -32,9 +32,9 @@ function WaveField() {
     return { positions, colors };
   }, []);
 
-  const indigo = useMemo(() => new THREE.Color("#4f46e5"), []);
-  const violet = useMemo(() => new THREE.Color("#7c3aed"), []);
-  const coral = useMemo(() => new THREE.Color("#ff5d4d"), []);
+  const indigo = useMemo(() => new THREE.Color("#2563eb"), []);
+  const violet = useMemo(() => new THREE.Color("#3b82f6"), []);
+  const coral = useMemo(() => new THREE.Color("#0ea5e9"), []);
   const paper = useMemo(() => new THREE.Color(PAPER), []);
   const tmp = useMemo(() => new THREE.Color(), []);
 

@@ -2,7 +2,7 @@
 
 import { useMemo, useRef, useState } from "react";
 
-import { generateCity } from "@/lib/three-utils";
+import { generateCityScape } from "@/lib/three-utils";
 import { Button } from "@/components/ui/button";
 import { DemoCanvas } from "@/components/demo-shell/DemoCanvas";
 import {
@@ -12,8 +12,8 @@ import {
   StatRow,
   ToggleRow,
 } from "@/components/demo-shell/ControlPanel";
-import { CityBuildings } from "@/components/three/CityBuildings";
-import { CityLighting, GroundPlane } from "@/components/three/SceneEnvironment";
+import { CityLighting } from "@/components/three/SceneEnvironment";
+import { CityScape } from "@/components/three/CityScape";
 import { GlowEffects } from "@/components/three/GlowEffects";
 import { CoverageField } from "./CoverageField";
 import { CellMarkers } from "./CellMarkers";
@@ -48,9 +48,9 @@ export default function CoverageDemo() {
   /** Per-cell contribution grids, computed once per cell id and cached. */
   const gridCacheRef = useRef(new Map<string, Float32Array>());
 
-  const buildings = useMemo(
+  const scape = useMemo(
     () =>
-      generateCity({
+      generateCityScape({
         seed: 21,
         blocks: 6,
         blockSize: 26,
@@ -62,6 +62,7 @@ export default function CoverageDemo() {
       }),
     []
   );
+  const buildings = scape.buildings;
 
   const { mask, streetIdx } = useMemo(() => buildMask(buildings), [buildings]);
 
@@ -165,8 +166,7 @@ export default function CoverageDemo() {
         fog={{ near: 160, far: 520 }}
       >
         <CityLighting />
-        <GroundPlane />
-        <CityBuildings buildings={buildings} />
+        <CityScape data={scape} />
         <CoverageField
           cells={activeCells}
           grids={grids}
